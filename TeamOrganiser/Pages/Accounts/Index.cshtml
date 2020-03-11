@@ -1,0 +1,67 @@
+﻿@page
+@model TeamOrganiser.IndexModel
+
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<h1 class="display-4">Accounts</h1>
+
+<medium class="text-muted">
+    Manage accounts. Add another manager or coach.
+</medium>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccount[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccount[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccount[0].AccountType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccount[0].Password)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserAccount)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editModal">
+    Edit
+</button>
+
+@await Html.PartialAsync("~/Pages/Accounts/EditAccount.cshtml")

@@ -6,7 +6,7 @@ namespace TeamOrganiser.Models
 {
     public class FootballPlayer
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public int Defender { get; set; }
