@@ -1,6 +1,7 @@
 ﻿@page
 @model TeamOrganiser.IndexModel
 
+
 @{
     ViewData["Title"] = "Accounts";
 }
@@ -11,6 +12,11 @@
     Manage accounts. Add another manager or coach.
 </medium>
 
+<div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+        Create New
+    </button>
+</div>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
@@ -35,6 +41,7 @@
     <tbody>
         @foreach (var item in Model.UserAccount)
         {
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -52,6 +59,8 @@
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+
+                    <a asp-page="./EditAccount" asp-route-id="@item.ID">Edit Account</a>
                 </td>
             </tr>
         }
@@ -59,9 +68,28 @@
     </tbody>
 </table>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#editModal">
-    Edit
-</button>
 
-@await Html.PartialAsync("~/Pages/Accounts/EditAccount.cshtml")
+
+@section scripts {
+    <script type="text/javascript">
+
+        function newTask() {
+
+            $.ajax({
+                type: "GET",
+                url: "Accounts/Edit?handler=UserAccount/3",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+
+        }
+
+
+    </script>
+}

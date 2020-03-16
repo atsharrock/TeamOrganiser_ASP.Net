@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TeamOrganiser.Data;
 using TeamOrganiser.Models.Account;
 
 namespace TeamOrganiser
@@ -48,17 +42,16 @@ namespace TeamOrganiser
 
             var userAccountToUpdate = await _context.UserAccount.FindAsync(id);
 
-            if (await TryUpdateModelAsync<UserAccount>(
+            if (await TryUpdateModelAsync(
             userAccountToUpdate,
             "useraccount",
-            s => s.Name, s => s.AccountType, s => s.Email, s => s.Password))
+            s => s.Name, s => s.AccountType, s => s.Email, s => s.Password).ConfigureAwait(false))
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToPage("./Index");
             }
 
             return Page();
         }
-
     }
 }

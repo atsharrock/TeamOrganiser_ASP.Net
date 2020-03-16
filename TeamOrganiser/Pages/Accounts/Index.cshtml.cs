@@ -19,14 +19,15 @@ namespace TeamOrganiser
             _context = context;
         }
 
-        public IList<UserAccount> UserAccount { get;set; }
+        public IList<UserAccount> UserAccount { get; set; }
+
+        [BindProperty]
+        public EditAccountModel EditAccountModel { get; set; }
 
         public async Task OnGetAsync()
         {
-            UserAccount = await _context.UserAccount.ToListAsync();
+            UserAccount = await _context.UserAccount.ToListAsync().ConfigureAwait(false);
         }
 
-        public IActionResult OnGetPartial() =>
-            Partial("Edit");
-        }
+    }
 }
