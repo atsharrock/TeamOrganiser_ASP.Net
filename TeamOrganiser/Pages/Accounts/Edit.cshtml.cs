@@ -17,23 +17,20 @@ namespace TeamOrganiser
         [BindProperty]
         public UserAccount UserAccount { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<JsonResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             UserAccount = await _context.UserAccount.FindAsync(id);
 
             if (UserAccount == null)
             {
-                return NotFound();
+                // insert error handling
             }
-            return Page();
+
+            return new JsonResult(UserAccount);
+            
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -53,5 +50,6 @@ namespace TeamOrganiser
 
             return Page();
         }
+
     }
 }

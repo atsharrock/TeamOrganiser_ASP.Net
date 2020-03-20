@@ -21,9 +21,6 @@ namespace TeamOrganiser
 
         public IList<UserAccount> UserAccount { get; set; }
 
-        [BindProperty]
-        public EditAccountModel EditAccountModel { get; set; }
-
         public async Task OnGetAsync()
         {
             UserAccount = await _context.UserAccount.ToListAsync().ConfigureAwait(false);

@@ -59,8 +59,9 @@
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-
-                    <a asp-page="./EditAccount" asp-route-id="@item.ID">Edit Account</a>
+                    <!-- Trigger the modal with a button -->
+                    @await Html.PartialAsync("~/Pages/Accounts/_FormModal.cshtml", @item)
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal" onclick="loadEdit(@item.ID)">Edit</button>
                 </td>
             </tr>
         }
@@ -70,26 +71,53 @@
 
 
 
-@section scripts {
-    <script type="text/javascript">
 
-        function newTask() {
+@section scripts{
+    <script>
 
-            $.ajax({
-                type: "GET",
-                url: "Accounts/Edit?handler=UserAccount/3",
-                contentType: "application/json",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response)
-                },
-                failure: function (response) {
-                    alert(response);
-                }
-            });
-
+        function loadEdit(id) {
+            $.getJSON("Accounts/Edit", { id: id }, function (data) {
+                event.preventDefault();
+                $('#inputName').val(data.name);
+                $('#inputEmail').val(data.email);
+                $('#inputPassword').val(data.password);
+                $('#inputAccount').val(data.accountType);
+            })
+            .fail(function (xhr, status, error) {
+                var errorMessage = xhr.status + ': ' + xhr.statusText
+                console.log('Error - ' + errorMessage);
+            })
         }
 
+        function edit(id) {
+            var form = $('#editForm');
+            var arrayData = $(form).serializeArray();
+            var data = JSON.stringify(arrayData);
+            
+            $.post('Accounts/Edit', $( "#editForm" ).serialize(), function (data) {
+                console.log(data);
+            });
+            /*
+            event.preventDefault();
+            var form = $('#editForm');
+            var jsonData = {};
+            $.each($(form).serializeArray(), function() {
+              jsonData[this.name] = this.value;
+            });
+            var data = JSON.stringify(jsonData);
+            $.ajax({
+              url: 'Accounts/Edit',
+              type: 'POST',
+              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+              dataType: 'json',
+              data: data,
+              success: function(data) {
+                  var jsonResult = JSON.stringify(data);
+                  console.log(jsonResult);
+              }
+            });
+            */
+        }
 
     </script>
 }
