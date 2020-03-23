@@ -1,12 +1,14 @@
 ﻿@page
-@model TeamOrganiser.IndexModel
-
+@model TeamOrganiser.IndexAccountsModel
+@using Models.Account
 
 @{
     ViewData["Title"] = "Accounts";
 }
 
 <h1 class="display-4">Accounts</h1>
+
+<div id="EditHandler"></div>
 
 <medium class="text-muted">
     Manage accounts. Add another manager or coach.
@@ -20,7 +22,8 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+
+<table class="display" id="table_useraccount">
     <thead>
         <tr>
             <th>
@@ -41,7 +44,6 @@
     <tbody>
         @foreach (var item in Model.UserAccount)
         {
-
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -60,7 +62,7 @@
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
                     <!-- Trigger the modal with a button -->
-                    @await Html.PartialAsync("~/Pages/Accounts/_FormModal.cshtml", @item)
+                    @await Html.PartialAsync("~/Pages/Accounts/_EditFormModal.cshtml", @item)
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal" onclick="loadEdit(@item.ID)">Edit</button>
                 </td>
             </tr>
@@ -68,8 +70,6 @@
 
     </tbody>
 </table>
-
-
 
 
 @section scripts{
@@ -83,41 +83,43 @@
                 $('#inputPassword').val(data.password);
                 $('#inputAccount').val(data.accountType);
             })
-            .fail(function (xhr, status, error) {
-                var errorMessage = xhr.status + ': ' + xhr.statusText
-                console.log('Error - ' + errorMessage);
-            })
+                .fail(function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    console.log('Error - ' + errorMessage);
+                })
         }
 
-        function edit(id) {
-            var form = $('#editForm');
-            var arrayData = $(form).serializeArray();
-            var data = JSON.stringify(arrayData);
-            
-            $.post('Accounts/Edit', $( "#editForm" ).serialize(), function (data) {
-                console.log(data);
+
+        function editModel(id) {
+            $.post('Accounts/Edit', $('#editForm').serialize(), function (data) {
+                $('#editModal').modal('toggle');
+                if (data.substring(0, 6) != "Error") {
+                    $("#EditHandler").append(
+                        '\
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">\
+                            <strong>Account updated!</strong>\
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                                <span aria-hidden="true">&times;</span>\
+                            </button>\
+                        </div >\
+                        '
+                    );
+                }
             });
-            /*
-            event.preventDefault();
-            var form = $('#editForm');
-            var jsonData = {};
-            $.each($(form).serializeArray(), function() {
-              jsonData[this.name] = this.value;
-            });
-            var data = JSON.stringify(jsonData);
-            $.ajax({
-              url: 'Accounts/Edit',
-              type: 'POST',
-              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-              dataType: 'json',
-              data: data,
-              success: function(data) {
-                  var jsonResult = JSON.stringify(data);
-                  console.log(jsonResult);
-              }
-            });
-            */
+
         }
+
+        $(document).ready( function () {
+            $('#table_useraccount').dataTable();
+        } );
 
     </script>
 }
+
+
+
+
+
+
+
+

@@ -6,31 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TeamOrganiser.Data;
-using TeamOrganiser.Models.Account;
+using TeamOrganiser.Models;
 
 namespace TeamOrganiser
 {
-    public class CreateAccountsModel : PageModel
+    public class CreateFootballPlayersModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public CreateAccountsModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public CreateFootballPlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        
-
         public IActionResult OnGet()
         {
-            
             return Page();
         }
 
         [BindProperty]
-        public UserAccount UserAccount { get; set; }
-
-        public AccountType AccountType { get; set; }
+        public FootballPlayer FootballPlayer { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -41,20 +36,10 @@ namespace TeamOrganiser
                 return Page();
             }
 
-            var emptyUserAccount = new UserAccount();
+            _context.FootballPlayer.Add(FootballPlayer);
+            await _context.SaveChangesAsync();
 
-            if (await TryUpdateModelAsync<UserAccount>(
-                emptyUserAccount,
-                "useraccount",
-                u => u.Name, u => u.AccountType, u => u.Email, u => u.Password))
-            {
-                _context.UserAccount.Add(emptyUserAccount);
-                await _context.SaveChangesAsync();
-
-                return RedirectToPage("./Index");
-            }
-
-            return null;
+            return RedirectToPage("./Index");
         }
     }
 }

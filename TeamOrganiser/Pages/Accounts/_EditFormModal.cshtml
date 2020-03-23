@@ -1,6 +1,4 @@
-﻿
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+﻿<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,28 +10,30 @@
             <div class="modal-body">
                 <form role="form" id="editForm" method="post">
                     <div class="box-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="ID" value="@Model.ID" />
                         <div class="form-group">
                             <label for="inputName">Name</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Enter Name" value="">
+                            <input type="text" class="form-control" name="Name" id="inputName" placeholder="Enter Name" value="">
                         </div>
                         <div class="form-group">
                             <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Enter Email" value="">
+                            <input type="email" class="form-control" name="Email" id="inputEmail" placeholder="Enter Email" value="">
                         </div>
                         <div class="form-group">
                             <label for="inputPassword">Password</label>
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            <input type="password" class="form-control" name="Password" id="inputPassword" placeholder="Password">
                         </div>
                         <div class="form-group">
                             <label for="inputAccount">Account</label>
-                            <select class="form-control" id="inputAccount" asp-items="Html.GetEnumSelectList<Models.Account.AccountType>()" value=""></select>
+                            <select class="form-control" id="inputAccount" name="AccountType" asp-items="Html.GetEnumSelectList<Models.Account.AccountType>()" value=""></select>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="edit(@Model.ID)" >Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="editModel(@Model.ID)">Save changes</button>
             </div>
         </div>
     </div>

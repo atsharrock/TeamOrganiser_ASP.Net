@@ -5,11 +5,11 @@ using TeamOrganiser.Models.Account;
 
 namespace TeamOrganiser
 {
-    public class EditModel : PageModel
+    public class EditAccountsModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public EditModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public EditAccountsModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,25 +30,29 @@ namespace TeamOrganiser
             
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync(UserAccount UserAccount)
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Content("Error - User account is invalid");
             }
 
-            var userAccountToUpdate = await _context.UserAccount.FindAsync(id);
+            var userAccountToUpdate = await _context.UserAccount.FindAsync(UserAccount.ID);
 
-            if (await TryUpdateModelAsync(
-            userAccountToUpdate,
-            "useraccount",
-            s => s.Name, s => s.AccountType, s => s.Email, s => s.Password).ConfigureAwait(false))
+            userAccountToUpdate.Name = UserAccount.Name;
+            userAccountToUpdate.Email = UserAccount.Email;
+            userAccountToUpdate.AccountType = UserAccount.AccountType;
+            userAccountToUpdate.Password = UserAccount.Password;
+
+            int result = await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            if (result == 1)
             {
-                await _context.SaveChangesAsync().ConfigureAwait(false);
-                return RedirectToPage("./Index");
+                return Content($"{userAccountToUpdate.Name} has been updated!");
             }
 
-            return Page();
+            return Content("Error - please contact your system administrator");
+
         }
 
     }

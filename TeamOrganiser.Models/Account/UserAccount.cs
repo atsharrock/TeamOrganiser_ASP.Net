@@ -23,5 +23,18 @@ namespace TeamOrganiser.Models.Account
         [StringLength(255, ErrorMessage = "Password must be larger than 6 characters", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public UserAccount(int iD, string name, AccountType accountType, string email, string password)
+        {
+            ID = iD;
+            Name = name;
+            AccountType = accountType;
+            Email = email;
+            Password = password;
+        }
+
+        public UserAccount()
+        {
+        }
     }
 }

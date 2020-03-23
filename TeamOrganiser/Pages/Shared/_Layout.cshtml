@@ -20,6 +20,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="~/admin-lte/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -41,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
             </ul>
         </nav>
-        
+
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -69,30 +71,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Starter Pages
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                                with font-awesome or any other icon font library
+                        <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Starter Pages
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inactive Page</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>-->
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Active Page</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Inactive Page</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>-->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -160,6 +162,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/admin-lte/js/adminlte.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

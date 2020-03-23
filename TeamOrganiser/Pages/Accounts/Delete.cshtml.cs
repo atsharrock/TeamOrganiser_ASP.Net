@@ -10,11 +10,11 @@ using TeamOrganiser.Models.Account;
 
 namespace TeamOrganiser
 {
-    public class DeleteModel : PageModel
+    public class DeleteAccountsModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public DeleteModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public DeleteAccountsModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
