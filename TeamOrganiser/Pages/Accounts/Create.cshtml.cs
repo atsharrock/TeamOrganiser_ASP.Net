@@ -19,8 +19,6 @@ namespace TeamOrganiser
             _context = context;
         }
 
-        
-
         public IActionResult OnGet()
         {
             
@@ -30,31 +28,29 @@ namespace TeamOrganiser
         [BindProperty]
         public UserAccount UserAccount { get; set; }
 
-        public AccountType AccountType { get; set; }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(UserAccount UserAccount)
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Content("Error - Model state is invalid.");
             }
 
-            var emptyUserAccount = new UserAccount();
+            var newUserAccount = new UserAccount();
 
-            if (await TryUpdateModelAsync<UserAccount>(
-                emptyUserAccount,
-                "useraccount",
-                u => u.Name, u => u.AccountType, u => u.Email, u => u.Password))
+            if (UserAccount != null)
             {
-                _context.UserAccount.Add(emptyUserAccount);
-                await _context.SaveChangesAsync();
+                newUserAccount.Name = UserAccount.Name;
+                newUserAccount.Email = UserAccount.Email;
+                newUserAccount.Password = UserAccount.Password;
+                newUserAccount.AccountType = UserAccount.AccountType;
 
-                return RedirectToPage("./Index");
+                _context.UserAccount.Add(newUserAccount);
+                await _context.SaveChangesAsync().ConfigureAwait(true);
+
+                return Content(newUserAccount.Name + " has been created!");
             }
 
-            return null;
+            return Content("Error - Could not create User Account.");
         }
     }
 }

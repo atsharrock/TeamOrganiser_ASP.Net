@@ -32,7 +32,7 @@ namespace TeamOrganiser
 
         public async Task<IActionResult> OnPostAsync(UserAccount UserAccount)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || UserAccount is null)
             {
                 return Content("Error - User account is invalid");
             }
@@ -44,11 +44,13 @@ namespace TeamOrganiser
             userAccountToUpdate.AccountType = UserAccount.AccountType;
             userAccountToUpdate.Password = UserAccount.Password;
 
-            int result = await _context.SaveChangesAsync().ConfigureAwait(false);
+            if (UserAccount.ID == userAccountToUpdate.ID) {
+                int result = await _context.SaveChangesAsync().ConfigureAwait(false);
 
-            if (result == 1)
-            {
-                return Content($"{userAccountToUpdate.Name} has been updated!");
+                if (result == 1)
+                {
+                    return Content($"{userAccountToUpdate.Name} has been updated!");
+                }
             }
 
             return Content("Error - please contact your system administrator");

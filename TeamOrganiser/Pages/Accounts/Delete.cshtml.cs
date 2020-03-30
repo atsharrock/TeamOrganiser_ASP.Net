@@ -32,7 +32,7 @@ namespace TeamOrganiser
 
             UserAccount = await _context.UserAccount
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id).ConfigureAwait(false);
 
             if (UserAccount == null)
             {
@@ -56,7 +56,7 @@ namespace TeamOrganiser
 
             var UserAccount = await _context.UserAccount
                             .AsNoTracking()
-                            .FirstOrDefaultAsync(m => m.ID == id);
+                            .FirstOrDefaultAsync(m => m.ID == id).ConfigureAwait(false);
 
             if (UserAccount == null)
             {
@@ -66,14 +66,12 @@ namespace TeamOrganiser
             try
             {
                 _context.UserAccount.Remove(UserAccount);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+                return Content(UserAccount.Name + " successfully deleted!");
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException)
             {
-                //Log the error (uncomment ex variable name and write a log.)
-                return RedirectToAction("./Delete",
-                                     new { id, saveChangesError = true });
+                return Content("Error");
             }
         }
     }

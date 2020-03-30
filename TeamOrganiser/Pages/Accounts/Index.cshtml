@@ -1,6 +1,5 @@
 ﻿@page
 @model TeamOrganiser.IndexAccountsModel
-@using Models.Account
 
 @{
     ViewData["Title"] = "Accounts";
@@ -57,7 +56,7 @@
                 <td>
                     <!-- Trigger the modal with a button -->
                     @await Html.PartialAsync("~/Pages/Accounts/_EditFormModal.cshtml", @item)
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal" onclick="loadEdit(@item.ID)">Edit</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal" onclick="loadEdit(@item.ID)">Edit</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="loadDelete(@item.ID)">Delete</button>
                 </td>
             </tr>
@@ -67,18 +66,42 @@
 </table>
 
 @await Html.PartialAsync("~/Pages/Shared/_SuccessModal.cshtml")
-@await Html.PartialAsync("~/Pages/Shared/_DeleteModal.cshtml")
+@await Html.PartialAsync("~/Pages/Shared/_ErrorModal.cshtml")
+@await Html.PartialAsync("~/Pages/Accounts/_DeleteWarningModal.cshtml")
+@await Html.PartialAsync("~/Pages/Accounts/_CreateFormModal.cshtml")
+
+<div class="text-center">
+    <!-- Button HTML (to Trigger Modal) -->
+    <a href="#errorModal" class="trigger-btn" data-toggle="modal">Click to Open Error Modal</a>
+</div>
 
 @section scripts{
     <script>
 
+        function createModal() {
+            $.post('Accounts/Create', $('#createForm').serialize(), function (data) {
+                $('#createModal').modal('toggle');
+                if (data.substring(0, 5) != "Error") {
+                    $('#successModalMessage').text(data);
+                    $('#success_tic').modal('toggle');
+                }
+                else {
+                    $('#errorModalMessage').text(data);
+                    $('#errorModal').modal('toggle');
+                }
+                setTimeout(function () {
+                    location.reload();
+                }, 2000)
+            });
+        }
+
         function loadEdit(id) {
+            console.log(id);
             $.getJSON("Accounts/Edit", { id: id }, function (data) {
-                event.preventDefault();
-                $('#inputName').val(data.name);
-                $('#inputEmail').val(data.email);
-                $('#inputPassword').val(data.password);
-                $('#inputAccount').val(data.accountType);
+                $('#inputEditName').val(data.name);
+                $('#inputEditEmail').val(data.email);
+                $('#inputEditPassword').val(data.password);
+                $('#inputEditAccount').val(data.accountType);
             })
                 .fail(function (xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -89,7 +112,7 @@
         function editModel(id) {
             $.post('Accounts/Edit', $('#editForm').serialize(), function (data) {
                 $('#editModal').modal('toggle');
-                if (data.substring(0, 6) != "Error") {
+                if (data.substring(0, 5) !== "Error") {
                     $('#successModalMessage').text(data);
                     $('#success_tic').modal('toggle');
                 }
@@ -97,20 +120,49 @@
                     location.reload();
                 }, 2000)
             });
+        }
 
+        function loadDelete(id) {
+            $.getJSON("Accounts/Edit", { id: id }, function (data) {
+                event.preventDefault();
+                $('#deleteWarningMsge').text("Are you sure you want to delete " + data.name + "? This action cannot be undone");
+                $('#deleteModalButton').attr('onClick', 'deleteModal(' + id + ')');
+            })
+                .fail(function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    console.log('Error - ' + errorMessage);
+                })
+        }
+
+        function deleteModal(id) {
+            $.post("Accounts/Delete", { id: id, __RequestVerificationToken: gettoken() }, function (data) {
+                if (data.substring(0, 5) != "Error") {
+                    $('#deleteModal').modal('toggle');
+                    $('#successModalMessage').text(data);
+                    $('#success_tic').modal('toggle');
+                }
+                setTimeout(function () {
+                    location.reload();
+                }, 2000)
+            })
+                .fail(function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    console.log('Error - ' + errorMessage);
+                })
         }
 
         $(document).ready(function () {
             $('#table_useraccount').dataTable();
         });
 
+        function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        }
+
     </script>
 }
-
-
-
-
-
 
 
 
