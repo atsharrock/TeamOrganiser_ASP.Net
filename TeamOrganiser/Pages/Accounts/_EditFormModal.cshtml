@@ -11,7 +11,7 @@
                 <form role="form" id="editForm" method="post">
                     <div class="box-body">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" name="ID" value="@Model.ID" />
+                        <input type="hidden" name="ID" id="inputEditID">
                         <div class="form-group">
                             <label for="inputName">Name</label>
                             <input type="text" class="form-control" name="Name" id="inputEditName" placeholder="Enter Name" value="">
@@ -33,7 +33,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="editModel(@Model.ID)">Save</button>
+                <button type="button" class="btn btn-primary" onclick="editModel()">Save</button>
             </div>
         </div>
     </div>

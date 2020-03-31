@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using TeamOrganiser.Models.Account;
 
 namespace TeamOrganiser
@@ -14,12 +15,9 @@ namespace TeamOrganiser
             _context = context;
         }
 
-        [BindProperty]
-        public UserAccount UserAccount { get; set; }
-
         public async Task<JsonResult> OnGetAsync(int? id)
         {
-            UserAccount = await _context.UserAccount.FindAsync(id);
+            var UserAccount = await _context.UserAccount.FindAsync(id);
 
             if (UserAccount == null)
             {
@@ -30,27 +28,30 @@ namespace TeamOrganiser
             
         }
 
-        public async Task<IActionResult> OnPostAsync(UserAccount UserAccount)
+        public async Task<IActionResult> OnPostAsync(UserAccount userAccount)
         {
-            if (!ModelState.IsValid || UserAccount is null)
+            if (!ModelState.IsValid || userAccount is null)
             {
-                return Content("Error - User account is invalid");
+                return Content("Error - User account is invalid.");
             }
 
-            var userAccountToUpdate = await _context.UserAccount.FindAsync(UserAccount.ID);
+            UserAccount UserAccountToUpdate = await _context.UserAccount.FirstOrDefaultAsync(m => m.ID == userAccount.ID).ConfigureAwait(false);
 
-            userAccountToUpdate.Name = UserAccount.Name;
-            userAccountToUpdate.Email = UserAccount.Email;
-            userAccountToUpdate.AccountType = UserAccount.AccountType;
-            userAccountToUpdate.Password = UserAccount.Password;
+            if (null == UserAccountToUpdate)
+            {
+                return Content("Error - This account doesnt exist.");
+            }
 
-            if (UserAccount.ID == userAccountToUpdate.ID) {
-                int result = await _context.SaveChangesAsync().ConfigureAwait(false);
+            UserAccountToUpdate.Name = userAccount.Name;
+            UserAccountToUpdate.Email = userAccount.Email;
+            UserAccountToUpdate.AccountType = userAccount.AccountType;
+            UserAccountToUpdate.Password = userAccount.Password;
 
-                if (result == 1)
-                {
-                    return Content($"{userAccountToUpdate.Name} has been updated!");
-                }
+            int result = await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            if (result == 1)
+            {
+                return Content($"{UserAccountToUpdate.Name} has been updated!");
             }
 
             return Content("Error - please contact your system administrator");

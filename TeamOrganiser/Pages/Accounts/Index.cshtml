@@ -54,8 +54,6 @@
                     @Html.DisplayFor(modelItem => item.Password)
                 </td>
                 <td>
-                    <!-- Trigger the modal with a button -->
-                    @await Html.PartialAsync("~/Pages/Accounts/_EditFormModal.cshtml", @item)
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal" onclick="loadEdit(@item.ID)">Edit</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="loadDelete(@item.ID)">Delete</button>
                 </td>
@@ -69,6 +67,7 @@
 @await Html.PartialAsync("~/Pages/Shared/_ErrorModal.cshtml")
 @await Html.PartialAsync("~/Pages/Accounts/_DeleteWarningModal.cshtml")
 @await Html.PartialAsync("~/Pages/Accounts/_CreateFormModal.cshtml")
+@await Html.PartialAsync("~/Pages/Accounts/_EditFormModal.cshtml")
 
 <div class="text-center">
     <!-- Button HTML (to Trigger Modal) -->
@@ -84,20 +83,23 @@
                 if (data.substring(0, 5) != "Error") {
                     $('#successModalMessage').text(data);
                     $('#success_tic').modal('toggle');
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 }
                 else {
                     $('#errorModalMessage').text(data);
                     $('#errorModal').modal('toggle');
                 }
-                setTimeout(function () {
-                    location.reload();
-                }, 2000)
+
             });
         }
 
         function loadEdit(id) {
             console.log(id);
             $.getJSON("Accounts/Edit", { id: id }, function (data) {
+                $('#inputEditID').val(id);
                 $('#inputEditName').val(data.name);
                 $('#inputEditEmail').val(data.email);
                 $('#inputEditPassword').val(data.password);
@@ -109,16 +111,22 @@
                 })
         }
 
-        function editModel(id) {
+        function editModel() {
             $.post('Accounts/Edit', $('#editForm').serialize(), function (data) {
                 $('#editModal').modal('toggle');
                 if (data.substring(0, 5) !== "Error") {
                     $('#successModalMessage').text(data);
                     $('#success_tic').modal('toggle');
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 }
-                setTimeout(function () {
-                    location.reload();
-                }, 2000)
+                else {
+                    $('#errorModalMessage').text(data);
+                    $('#errorModal').modal('toggle');
+                }
+
             });
         }
 
@@ -140,10 +148,16 @@
                     $('#deleteModal').modal('toggle');
                     $('#successModalMessage').text(data);
                     $('#success_tic').modal('toggle');
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 }
-                setTimeout(function () {
-                    location.reload();
-                }, 2000)
+                else {
+                    $('#errorModalMessage').text(data);
+                    $('#errorModal').modal('toggle');
+                }
+
             })
                 .fail(function (xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText;
