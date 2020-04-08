@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using TeamOrganiser.Data;
 using TeamOrganiser.Models.Account;
+using Microsoft.AspNetCore.Identity;
 
 namespace TeamOrganiser
 {
@@ -41,7 +37,7 @@ namespace TeamOrganiser
             {
                 newUserAccount.Name = UserAccount.Name;
                 newUserAccount.Email = UserAccount.Email;
-                newUserAccount.Password = UserAccount.Password;
+                newUserAccount.Password = EncryptPassword(newUserAccount, UserAccount.Password);
                 newUserAccount.AccountType = UserAccount.AccountType;
 
                 _context.UserAccount.Add(newUserAccount);
@@ -51,6 +47,12 @@ namespace TeamOrganiser
             }
 
             return Content("Error - Could not create User Account.");
+        }
+
+        private string EncryptPassword(UserAccount account, string password)
+        {
+            var passwordHasher = new PasswordHasher<UserAccount>();
+            return passwordHasher.HashPassword(account, password);
         }
     }
 }
