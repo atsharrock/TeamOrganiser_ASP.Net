@@ -27,4 +27,9 @@
     <ProjectReference Include="..\TeamOrganiser.Services\TeamOrganiser.Services.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Pages\Players\" />
+  </ItemGroup>
+
 </Project>
