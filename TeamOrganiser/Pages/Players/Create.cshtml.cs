@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TeamOrganiser.Data;
-using TeamOrganiser.Models;
+using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
 {
-    public class CreateFootballPlayersModel : PageModel
+    public class CreateModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public CreateFootballPlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public CreateModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,7 +25,7 @@ namespace TeamOrganiser
         }
 
         [BindProperty]
-        public FootballPlayer FootballPlayer { get; set; }
+        public Player Player { get; set; }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -36,7 +36,7 @@ namespace TeamOrganiser
                 return Page();
             }
 
-            _context.FootballPlayer.Add(FootballPlayer);
+            _context.Player.Add(Player);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

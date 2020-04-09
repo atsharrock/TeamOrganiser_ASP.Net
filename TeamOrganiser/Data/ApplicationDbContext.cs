@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TeamOrganiser.Models.Account;
 using TeamOrganiser.Models;
+using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser.Data
 {
@@ -16,5 +17,6 @@ namespace TeamOrganiser.Data
         }
         public DbSet<TeamOrganiser.Models.Account.UserAccount> UserAccount { get; set; }
         public DbSet<TeamOrganiser.Models.FootballPlayer> FootballPlayer { get; set; }
+        public DbSet<TeamOrganiser.Models.Players.Player> Player { get; set; }
     }
 }

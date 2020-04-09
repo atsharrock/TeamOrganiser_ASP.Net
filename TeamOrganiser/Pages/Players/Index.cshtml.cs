@@ -6,24 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TeamOrganiser.Data;
-using TeamOrganiser.Models;
+using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
 {
-    public class IndexFootballPlayersModel : PageModel
+    public class IndexModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public IndexFootballPlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public IndexModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<FootballPlayer> FootballPlayer { get;set; }
+        public IList<Player> Player { get;set; }
 
         public async Task OnGetAsync()
         {
-            FootballPlayer = await _context.FootballPlayer.ToListAsync();
+            Player = await _context.Player.ToListAsync();
         }
     }
 }

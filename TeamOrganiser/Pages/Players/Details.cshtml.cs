@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TeamOrganiser.Data;
-using TeamOrganiser.Models;
+using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
 {
-    public class DetailsFootballPlayersModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public DetailsFootballPlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public DetailsModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public FootballPlayer FootballPlayer { get; set; }
+        public Player Player { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            FootballPlayer = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == id);
+            Player = await _context.Player.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (FootballPlayer == null)
+            if (Player == null)
             {
                 return NotFound();
             }
