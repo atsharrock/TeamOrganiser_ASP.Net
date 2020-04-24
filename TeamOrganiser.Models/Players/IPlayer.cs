@@ -11,6 +11,5 @@ namespace TeamOrganiser.Models.Players
         string LastName { get; set; }
         string Email { get; set; }
         string ContactNumber { get; set; }
-        List<Sports> AssociatedSports { get; set; }
     }
 }

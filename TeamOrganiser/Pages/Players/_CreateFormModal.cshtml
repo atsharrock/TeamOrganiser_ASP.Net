@@ -24,17 +24,19 @@
                         </div>
                         <div class="form-group">
                             <label for="inputContactNumber">Contact No.</label>
-                            <input type="number" class="form-control" name="phonenumber" id="inputCreatePhoneNumber" placeholder="Phone Number">
+                            <input type="text" class="form-control" name="contactnumber" id="inputCreatePhoneNumber" placeholder="Phone Number">
                         </div>
-                        <label>Sports:</label>
                         <div class="form-group">
-                            @foreach (Models.Sport sport in (Models.Sport[])Enum.GetValues(typeof(Models.Sport)))
-                            {
-                                @sport;
-                                @Html.Raw(":");
-                                <input type="checkbox">
-                                <br />
-                            }
+                            <label>Football</label>
+                            <input type="checkbox" class="form-control" value="true" name="football" id="football">
+                        </div>
+                        <div class="form-group">
+                            <label>Hockey</label>
+                            <input type="checkbox" class="form-control" value="true" name="hockey" id="hockey">
+                        </div>
+                        <div class="form-group">
+                            <label>Basketball</label>
+                            <input type="checkbox" class="form-control" value="true" name="basketball" id="basketball">
                         </div>
                     </div>
                 </form>

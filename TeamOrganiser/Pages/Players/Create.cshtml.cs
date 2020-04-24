@@ -27,19 +27,32 @@ namespace TeamOrganiser
         [BindProperty]
         public Player Player { get; set; }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Player Player)
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Content("Error - Model state is invalid.");
             }
 
-            _context.Player.Add(Player);
-            await _context.SaveChangesAsync();
+            Player NewPlayer = new Player();
 
-            return RedirectToPage("./Index");
+            if (Player != null)
+            {
+                NewPlayer.FirstName = Player.FirstName;
+                NewPlayer.LastName = Player.LastName;
+                NewPlayer.Email = Player.Email;
+                NewPlayer.ContactNumber = Player.ContactNumber;
+                NewPlayer.Football = Player.Football;
+                NewPlayer.Hockey = Player.Hockey;
+                NewPlayer.Basketball = Player.Basketball;
+
+                _context.Player.Add(NewPlayer);
+                await _context.SaveChangesAsync().ConfigureAwait(true);
+
+                return Content(NewPlayer.FirstName + " has been created!");
+            }
+
+            return Content("Error - Could not create Player.");
         }
     }
 }
