@@ -30,6 +30,7 @@ namespace TeamOrganiser.Models.Players
             LastName = lastName;
             Email = email;
             ContactNumber = contactNumber;
+            AssociatedSports = new List<Sports>();
         }
     }
 }
