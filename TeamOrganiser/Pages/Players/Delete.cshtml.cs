@@ -22,20 +22,16 @@ namespace TeamOrganiser
         [BindProperty]
         public Player Player { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<JsonResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Player = await _context.Player.FirstOrDefaultAsync(m => m.ID == id);
+            Player Player = await _context.Player.FindAsync(id);
 
             if (Player == null)
             {
-                return NotFound();
+                // insert error handling
             }
-            return Page();
+
+            return new JsonResult(Player);
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
@@ -45,15 +41,25 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            Player = await _context.Player.FindAsync(id);
+            Player Player = await _context.Player
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(m => m.ID == id).ConfigureAwait(false);
 
-            if (Player != null)
+            if (Player == null)
             {
-                _context.Player.Remove(Player);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _context.Player.Remove(Player);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+                return Content(Player.FirstName + " successfully deleted!");
+            }
+            catch (DbUpdateException)
+            {
+                return Content("Error");
+            }
         }
     }
 }

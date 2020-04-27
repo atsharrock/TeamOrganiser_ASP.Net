@@ -70,9 +70,8 @@
                     @Html.DisplayFor(modelItem => item.Basketball)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal" onclick="loadEdit(@item.ID)">Edit</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="loadDelete(@item.ID)">Delete</button>
                 </td>
             </tr>
         }
@@ -82,6 +81,8 @@
 @await Html.PartialAsync("~/Pages/Shared/_SuccessModal.cshtml")
 @await Html.PartialAsync("~/Pages/Shared/_ErrorModal.cshtml")
 @await Html.PartialAsync("~/Pages/Players/_CreateFormModal.cshtml")
+@await Html.PartialAsync("~/Pages/Players/_EditFormModal.cshtml")
+@await Html.PartialAsync("~/Pages/Players/_DeleteWarningModal.cshtml")
 
 @section scripts {
     <script>
@@ -105,9 +106,68 @@
             });
         }
 
+        function loadEdit(id) {
+            $.getJSON("Players/Edit", { id: id }, function (data) {
+                console.log(data)
+                $('#inputEditID').val(id);
+                $('#inputEditFirstName').val(data.firstName);
+                $('#inputEditLastName').val(data.lastName);
+                $('#inputEditEmail').val(data.email);
+                $('#inputEditPhoneNumber').val(data.contactNumber);
+                $('#editFootball').prop('checked', data.football);
+                $('#editHockey').prop('checked', data.hockey);
+                $('#editBasketball').prop('checked', data.basketball);
+            })
+                .fail(function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    console.log('Error - ' + errorMessage);
+                })
+        }
+
+        function loadDelete(id) {
+            $.getJSON("Players/Delete", { id: id }, function (data) {
+                event.preventDefault();
+                $('#deleteWarningMsge').text("Are you sure you want to delete " + data.firstName + "? This action cannot be undone");
+                $('#deleteModalButton').attr('onClick', 'deleteModal(' + id + ')');
+            })
+                .fail(function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    console.log('Error - ' + errorMessage);
+                })
+        }
+
+        function deleteModal(id) {
+            $.post("Players/Delete", { id: id, __RequestVerificationToken: gettoken() }, function (data) {
+                if (data.substring(0, 5) != "Error") {
+                    $('#deleteModal').modal('toggle');
+                    $('#successModalMessage').text(data);
+                    $('#success_tic').modal('toggle');
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }
+                else {
+                    $('#errorModalMessage').text(data);
+                    $('#errorModal').modal('toggle');
+                }
+
+            })
+                .fail(function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    console.log('Error - ' + errorMessage);
+                })
+        }
+
         $(document).ready(function () {
             $('#table_players').dataTable();
         });
+
+        function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        }
 
     </script>
 }

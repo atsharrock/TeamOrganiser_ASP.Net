@@ -92,7 +92,6 @@
         }
 
         function loadEdit(id) {
-            console.log(id);
             $.getJSON("Accounts/Edit", { id: id }, function (data) {
                 $('#inputEditID').val(id);
                 $('#inputEditName').val(data.name);

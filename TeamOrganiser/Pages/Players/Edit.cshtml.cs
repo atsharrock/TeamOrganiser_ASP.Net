@@ -23,20 +23,16 @@ namespace TeamOrganiser
         [BindProperty]
         public Player Player { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<JsonResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Player = await _context.Player.FirstOrDefaultAsync(m => m.ID == id);
+            Player Player = await _context.Player.FindAsync(id);
 
             if (Player == null)
             {
-                return NotFound();
+                // insert error handling
             }
-            return Page();
+
+            return new JsonResult(Player);
         }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

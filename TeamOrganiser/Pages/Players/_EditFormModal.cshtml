@@ -1,0 +1,52 @@
+﻿<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="editForm" method="post">
+                    <div class="box-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="ID" id="inputEditID">
+                        <div class="form-group">
+                            <label for="inputFirstName">First Name</label>
+                            <input type="text" class="form-control" name="firstname" id="inputEditFirstName" placeholder="First Name" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLastName">Last Name</label>
+                            <input type="text" class="form-control" name="lastname" id="inputEditLastName" placeholder="Last Name" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">E-mail</label>
+                            <input type="email" class="form-control" name="email" id="inputEditEmail" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContactNumber">Contact No.</label>
+                            <input type="text" class="form-control" name="contactnumber" id="inputEditPhoneNumber" placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <label>Football</label>
+                            <input type="checkbox" class="form-control" value="true" name="football" id="editFootball">
+                        </div>
+                        <div class="form-group">
+                            <label>Hockey</label>
+                            <input type="checkbox" class="form-control" value="true" name="hockey" id="editHockey">
+                        </div>
+                        <div class="form-group">
+                            <label>Basketball</label>
+                            <input type="checkbox" class="form-control" value="true" name="basketball" id="editBasketball">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editModel()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
