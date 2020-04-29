@@ -10,11 +10,11 @@ using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
 {
-    public class DeleteModel : PageModel
+    public class DeletePlayersModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public DeleteModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public DeletePlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }

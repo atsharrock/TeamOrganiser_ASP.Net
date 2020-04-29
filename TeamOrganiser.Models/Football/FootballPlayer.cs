@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using TeamOrganiser.Models.Football;
 using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser.Models
 {
-    public class FootballPlayer
+    public class FootballPlayer : IPlayer, IFootballPlayer
     {
         [Key]
         public int ID { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string ContactNumber { get; set; }
 
         public int Defence { get; set; }
         public int CentreBack { get; set; }
@@ -25,17 +31,20 @@ namespace TeamOrganiser.Models
         public int Forward { get; set; }
         public int CentreForward { get; set; }
         public int Winger { get; set; }
+        
+
+        public FootballPlayer(int id, string firstname, string lastname, string email, string contactnumber)
+        {
+            ID = id;
+            FirstName = firstname;
+            LastName = lastname;
+            Email = email;
+            ContactNumber = contactnumber;
+        }
 
         public FootballPlayer()
         {
 
-        }
-
-        public FootballPlayer(int defence, int midfield, int attack)
-        {
-            Defence = defence;
-            Midfield = midfield;
-            Attack = attack;
         }
     }
 }

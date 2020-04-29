@@ -1,0 +1,138 @@
+﻿@page
+@model TeamOrganiser.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].ContactNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Defence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].CentreBack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Sweeper)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].FullBack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].WingBack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Midfield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].CentreMidfield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].DefensiveMidfield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].AttackingMidfield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].WideMidfield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Attack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Forward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].CentreForward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Winger)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FootballPlayer) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Defence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentreBack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sweeper)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullBack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WingBack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Midfield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentreMidfield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DefensiveMidfield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttackingMidfield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WideMidfield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Forward)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CentreForward)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Winger)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

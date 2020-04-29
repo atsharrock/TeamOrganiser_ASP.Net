@@ -10,11 +10,11 @@ using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
 {
-    public class CreateModel : PageModel
+    public class CreatePlayersModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public CreateModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public CreatePlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -48,6 +48,21 @@ namespace TeamOrganiser
 
                 _context.Player.Add(NewPlayer);
                 await _context.SaveChangesAsync().ConfigureAwait(true);
+
+                if (Player.Football)
+                {
+
+                }
+
+                if (Player.Hockey)
+                {
+
+                }
+
+                if (Player.Basketball)
+                {
+
+                }
 
                 return Content(NewPlayer.FirstName + " has been created!");
             }

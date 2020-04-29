@@ -1,0 +1,119 @@
+﻿@page
+@model TeamOrganiser.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>FootballPlayer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.FirstName" class="control-label"></label>
+                <input asp-for="FootballPlayer.FirstName" class="form-control" />
+                <span asp-validation-for="FootballPlayer.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.LastName" class="control-label"></label>
+                <input asp-for="FootballPlayer.LastName" class="form-control" />
+                <span asp-validation-for="FootballPlayer.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Email" class="control-label"></label>
+                <input asp-for="FootballPlayer.Email" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.ContactNumber" class="control-label"></label>
+                <input asp-for="FootballPlayer.ContactNumber" class="form-control" />
+                <span asp-validation-for="FootballPlayer.ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Defence" class="control-label"></label>
+                <input asp-for="FootballPlayer.Defence" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Defence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.CentreBack" class="control-label"></label>
+                <input asp-for="FootballPlayer.CentreBack" class="form-control" />
+                <span asp-validation-for="FootballPlayer.CentreBack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Sweeper" class="control-label"></label>
+                <input asp-for="FootballPlayer.Sweeper" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Sweeper" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.FullBack" class="control-label"></label>
+                <input asp-for="FootballPlayer.FullBack" class="form-control" />
+                <span asp-validation-for="FootballPlayer.FullBack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.WingBack" class="control-label"></label>
+                <input asp-for="FootballPlayer.WingBack" class="form-control" />
+                <span asp-validation-for="FootballPlayer.WingBack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Midfield" class="control-label"></label>
+                <input asp-for="FootballPlayer.Midfield" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Midfield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.CentreMidfield" class="control-label"></label>
+                <input asp-for="FootballPlayer.CentreMidfield" class="form-control" />
+                <span asp-validation-for="FootballPlayer.CentreMidfield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.DefensiveMidfield" class="control-label"></label>
+                <input asp-for="FootballPlayer.DefensiveMidfield" class="form-control" />
+                <span asp-validation-for="FootballPlayer.DefensiveMidfield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.AttackingMidfield" class="control-label"></label>
+                <input asp-for="FootballPlayer.AttackingMidfield" class="form-control" />
+                <span asp-validation-for="FootballPlayer.AttackingMidfield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.WideMidfield" class="control-label"></label>
+                <input asp-for="FootballPlayer.WideMidfield" class="form-control" />
+                <span asp-validation-for="FootballPlayer.WideMidfield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Attack" class="control-label"></label>
+                <input asp-for="FootballPlayer.Attack" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Attack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Forward" class="control-label"></label>
+                <input asp-for="FootballPlayer.Forward" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Forward" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.CentreForward" class="control-label"></label>
+                <input asp-for="FootballPlayer.CentreForward" class="form-control" />
+                <span asp-validation-for="FootballPlayer.CentreForward" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballPlayer.Winger" class="control-label"></label>
+                <input asp-for="FootballPlayer.Winger" class="form-control" />
+                <span asp-validation-for="FootballPlayer.Winger" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

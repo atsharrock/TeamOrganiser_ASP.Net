@@ -7,36 +7,40 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TeamOrganiser.Data;
-using TeamOrganiser.Models.Players;
+using TeamOrganiser.Models;
 
 namespace TeamOrganiser
 {
-    public class EditPlayersModel : PageModel
+    public class EditFootballersModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public EditPlayersModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public EditFootballersModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Player Player { get; set; }
+        public FootballPlayer FootballPlayer { get; set; }
 
-        public async Task<JsonResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            Player Player = await _context.Player.FindAsync(id);
-
-            if (Player == null)
+            if (id == null)
             {
-                // insert error handling
+                return NotFound();
             }
 
-            return new JsonResult(Player);
+            FootballPlayer = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (FootballPlayer == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -44,7 +48,7 @@ namespace TeamOrganiser
                 return Page();
             }
 
-            _context.Attach(Player).State = EntityState.Modified;
+            _context.Attach(FootballPlayer).State = EntityState.Modified;
 
             try
             {
@@ -52,7 +56,7 @@ namespace TeamOrganiser
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerExists(Player.ID))
+                if (!FootballPlayerExists(FootballPlayer.ID))
                 {
                     return NotFound();
                 }
@@ -65,9 +69,9 @@ namespace TeamOrganiser
             return RedirectToPage("./Index");
         }
 
-        private bool PlayerExists(int id)
+        private bool FootballPlayerExists(int id)
         {
-            return _context.Player.Any(e => e.ID == id);
+            return _context.FootballPlayer.Any(e => e.ID == id);
         }
     }
 }
