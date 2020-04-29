@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamOrganiser", "TeamOrgani
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamOrganiser.Models", "TeamOrganiser.Models\TeamOrganiser.Models.csproj", "{29FEB8C3-9989-4CD5-B40E-9CF70A542F3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamOrganiser.Tests", "TeamOrganiser.Tests\TeamOrganiser.Tests.csproj", "{F573FE93-8DA6-4F82-AD37-2B001291B39D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{29FEB8C3-9989-4CD5-B40E-9CF70A542F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29FEB8C3-9989-4CD5-B40E-9CF70A542F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29FEB8C3-9989-4CD5-B40E-9CF70A542F3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F573FE93-8DA6-4F82-AD37-2B001291B39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F573FE93-8DA6-4F82-AD37-2B001291B39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F573FE93-8DA6-4F82-AD37-2B001291B39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F573FE93-8DA6-4F82-AD37-2B001291B39D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

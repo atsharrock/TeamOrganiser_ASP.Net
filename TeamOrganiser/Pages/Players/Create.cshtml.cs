@@ -51,17 +51,17 @@ namespace TeamOrganiser
 
                 if (Player.Football)
                 {
-
+                    
                 }
 
                 if (Player.Hockey)
                 {
-
+                    // TODO
                 }
 
                 if (Player.Basketball)
                 {
-
+                    // TODO
                 }
 
                 return Content(NewPlayer.FirstName + " has been created!");

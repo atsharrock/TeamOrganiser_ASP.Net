@@ -10,11 +10,11 @@ using TeamOrganiser.Models;
 
 namespace TeamOrganiser
 {
-    public class DetailsFotballersModel : PageModel
+    public class DetailsFootballersModel : PageModel
     {
         private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public DetailsFotballersModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public DetailsFootballersModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
