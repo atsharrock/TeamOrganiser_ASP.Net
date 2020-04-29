@@ -64,5 +64,3 @@
 
 * linguist-vendored
 *.css linguist-detectable=false
-*.js linguist-detectable=true
-*.cs linguist-detectable=true
