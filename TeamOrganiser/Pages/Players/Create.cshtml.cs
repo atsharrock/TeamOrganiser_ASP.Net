@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TeamOrganiser.Data;
+using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
@@ -47,22 +48,14 @@ namespace TeamOrganiser
                 NewPlayer.Basketball = Player.Basketball;
 
                 _context.Player.Add(NewPlayer);
-                await _context.SaveChangesAsync().ConfigureAwait(true);
 
                 if (Player.Football)
                 {
-                    
+                    FootballPlayer NewFootballPlayer = SportsFactory.CreateFootballPlayer(NewPlayer);
+                    _context.FootballPlayer.Add(NewFootballPlayer);
                 }
 
-                if (Player.Hockey)
-                {
-                    // TODO
-                }
-
-                if (Player.Basketball)
-                {
-                    // TODO
-                }
+                await _context.SaveChangesAsync().ConfigureAwait(true);
 
                 return Content(NewPlayer.FirstName + " has been created!");
             }
