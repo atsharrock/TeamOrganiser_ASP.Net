@@ -1,0 +1,68 @@
+﻿<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Footballer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="editForm" method="post">
+                    <div class="box-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="ID" id="inputEditID">
+                        <div class="form-group">
+                            <label for="inputCentreBack">Centre Back</label>
+                            <input type="number" min="0" max="100" class="form-control" name="CentreBack" id="inputEditCentreBack">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSweeper">Sweeper</label>
+                            <input type="number" min="0" max="100" class="form-control" name="Sweeper" id="inputEditSweeper">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFullBack">Full Back</label>
+                            <input type="number" min="0" max="100" class="form-control" name="FullBack" id="inputEditFullBack">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputWingBack">Wing Back</label>
+                            <input type="number" min="0" max="100" class="form-control" name="WingBack" id="inputEditWingBack">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCentreMidfield">Centre Midfield</label>
+                            <input type="number" min="0" max="100" class="form-control" name="CentreMidfield" id="inputEditCentreMidfield">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDefensiveMidfield">Defensive Midfield</label>
+                            <input type="number" min="0" max="100" class="form-control" name="DefensiveMidfield" id="inputEditDefensiveMidfield">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAttackingMidfield">Attacking Midfield</label>
+                            <input type="number" min="0" max="100" class="form-control" name="AttackingMidfield" id="inputEditAttackingMidfield">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputWideMidfield">Wide Midfield</label>
+                            <input type="number" min="0" max="100" class="form-control" name="WideMidfield" id="inputEditWideMidfield">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputForward">Forward</label>
+                            <input type="number" min="0" max="100" class="form-control" name="Forward" id="inputEditForward">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCentreForward">Centre Forward</label>
+                            <input type="number" min="0" max="100" class="form-control" name="CentreForward" id="inputEditCentreForward">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputWinger">Winger</label>
+                            <input type="number" min="0" max="100" class="form-control" name="Winger" id="inputEditWinger">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editModel()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

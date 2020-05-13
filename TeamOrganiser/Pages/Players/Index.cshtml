@@ -41,7 +41,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Player[0].Basketball)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -122,6 +122,10 @@
                     var errorMessage = xhr.status + ': ' + xhr.statusText
                     console.log('Error - ' + errorMessage);
                 })
+        }
+
+        function editModel() {
+            // TODO
         }
 
         function loadDelete(id) {

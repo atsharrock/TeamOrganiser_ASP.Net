@@ -20,5 +20,6 @@ namespace TeamOrganiser.Models.Football
         int Forward { get; set; }
         int CentreForward { get; set; }
         int Winger { get; set; }
+        int Rating { get; set; }
     }
 }

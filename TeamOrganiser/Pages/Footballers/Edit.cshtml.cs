@@ -20,58 +20,100 @@ namespace TeamOrganiser
             _context = context;
         }
 
-        [BindProperty]
-        public FootballPlayer FootballPlayer { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<JsonResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                // insert error handling
             }
 
-            FootballPlayer = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == id);
+            var FootballPlayer = await _context.FootballPlayer.FindAsync(id);
 
             if (FootballPlayer == null)
             {
-                return NotFound();
+                // insert error handling
             }
-            return Page();
+
+            return new JsonResult(FootballPlayer);
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(FootballPlayer FootballPlayer)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || FootballPlayer is null)
             {
-                return Page();
+                return Content("Error - Football player is invalid.");
             }
 
-            _context.Attach(FootballPlayer).State = EntityState.Modified;
+            FootballPlayer FootballPlayerToUpdate = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == FootballPlayer.ID).ConfigureAwait(false);
 
-            try
+            if (null == FootballPlayerToUpdate)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FootballPlayerExists(FootballPlayer.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Content("Error - Football player does not exist.");
             }
 
-            return RedirectToPage("./Index");
+            FootballPlayerToUpdate.CentreBack = FootballPlayer.CentreBack;
+            FootballPlayerToUpdate.Sweeper = FootballPlayer.Sweeper;
+            FootballPlayerToUpdate.FullBack = FootballPlayer.FullBack;
+            FootballPlayerToUpdate.WingBack = FootballPlayer.WingBack;
+            FootballPlayerToUpdate.CentreMidfield = FootballPlayer.CentreMidfield;
+            FootballPlayerToUpdate.DefensiveMidfield = FootballPlayer.DefensiveMidfield;
+            FootballPlayerToUpdate.AttackingMidfield = FootballPlayer.AttackingMidfield;
+            FootballPlayerToUpdate.WideMidfield = FootballPlayer.WideMidfield;
+            FootballPlayerToUpdate.Forward = FootballPlayer.Forward;
+            FootballPlayerToUpdate.CentreForward = FootballPlayer.CentreForward;
+            FootballPlayerToUpdate.Winger = FootballPlayer.Winger;
+
+            List<int> DefenceRatings = new List<int>() { FootballPlayerToUpdate.CentreBack, FootballPlayerToUpdate.Sweeper,
+                                                            FootballPlayerToUpdate.FullBack, FootballPlayerToUpdate.WingBack };
+
+            List<int> MidfieldRatings = new List<int>() { FootballPlayerToUpdate.CentreMidfield, FootballPlayerToUpdate.DefensiveMidfield,
+                                                           FootballPlayerToUpdate.AttackingMidfield, FootballPlayerToUpdate.WideMidfield };
+
+            List<int> AttackRatings = new List<int>() { FootballPlayerToUpdate.Forward, FootballPlayerToUpdate.CentreForward, FootballPlayerToUpdate.Winger };
+
+            FootballPlayerToUpdate.Defence = GetPositionRating(DefenceRatings);
+            FootballPlayerToUpdate.Midfield = GetPositionRating(MidfieldRatings);
+            FootballPlayerToUpdate.Attack = GetPositionRating(AttackRatings);
+
+            FootballPlayerToUpdate.Rating = GetOverallRating(FootballPlayerToUpdate.Defence, FootballPlayerToUpdate.Midfield, FootballPlayerToUpdate.Attack);
+
+            int result = await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            if (result == 1)
+            {
+                return Content($"{FootballPlayerToUpdate.FirstName} has been updated!");
+            }
+
+            return Content("Error - please contact your system administrator");
+
         }
 
-        private bool FootballPlayerExists(int id)
+        private int GetOverallRating(int Defence, int Midfield, int Attack) 
         {
-            return _context.FootballPlayer.Any(e => e.ID == id);
+            return (Defence + Midfield + Attack) / 3;
         }
+
+        private int GetPositionRating(List<int> PositionRatings)
+        {
+            int count = 0;
+            int rating = 0;
+
+            foreach (int position in PositionRatings)
+            {
+                if (position != 0)
+                {
+                    count++;
+                    rating += position;
+                }
+            }
+
+            if (count == 0)
+            {
+                return 0;
+            }
+
+            return rating / count;
+        }
+
     }
 }

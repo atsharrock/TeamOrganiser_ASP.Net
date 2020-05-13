@@ -39,7 +39,7 @@ namespace TeamOrganiser
 
             if (null == UserAccountToUpdate)
             {
-                return Content("Error - This account doesnt exist.");
+                return Content("Error - Account does not exist.");
             }
 
             UserAccountToUpdate.Name = userAccount.Name;

@@ -31,6 +31,7 @@ namespace TeamOrganiser.Models
         public int Forward { get; set; }
         public int CentreForward { get; set; }
         public int Winger { get; set; }
+        public int Rating { get; set; }
         
 
         public FootballPlayer(int id, string firstname, string lastname, string email, string contactnumber)
