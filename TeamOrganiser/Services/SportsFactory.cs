@@ -8,6 +8,21 @@ namespace TeamOrganiser
     public static class SportsFactory
     {
 
+        public static Player CreatePlayer(Player Player)
+        {
+            Player NewPlayer = new Player();
+
+            NewPlayer.FirstName = Player.FirstName;
+            NewPlayer.LastName = Player.LastName;
+            NewPlayer.Email = Player.Email;
+            NewPlayer.ContactNumber = Player.ContactNumber;
+            NewPlayer.Football = Player.Football;
+            NewPlayer.Hockey = Player.Hockey;
+            NewPlayer.Basketball = Player.Basketball;
+
+            return NewPlayer;
+        }
+
         public static FootballPlayer CreateFootballPlayer(Player player)
         {
             if (null == player)

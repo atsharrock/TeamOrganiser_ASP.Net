@@ -18,5 +18,10 @@ namespace TeamOrganiser.Data
         public DbSet<TeamOrganiser.Models.Account.UserAccount> UserAccount { get; set; }
         public DbSet<TeamOrganiser.Models.FootballPlayer> FootballPlayer { get; set; }
         public DbSet<TeamOrganiser.Models.Players.Player> Player { get; set; }
+
+        public ApplicationDbContext()
+        {
+
+        }
     }
 }

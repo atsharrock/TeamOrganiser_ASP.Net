@@ -35,18 +35,9 @@ namespace TeamOrganiser
                 return Content("Error - Model state is invalid.");
             }
 
-            Player NewPlayer = new Player();
-
             if (Player != null)
             {
-                NewPlayer.FirstName = Player.FirstName;
-                NewPlayer.LastName = Player.LastName;
-                NewPlayer.Email = Player.Email;
-                NewPlayer.ContactNumber = Player.ContactNumber;
-                NewPlayer.Football = Player.Football;
-                NewPlayer.Hockey = Player.Hockey;
-                NewPlayer.Basketball = Player.Basketball;
-
+                Player NewPlayer = SportsFactory.CreatePlayer(Player);
                 _context.Player.Add(NewPlayer);
 
                 if (Player.Football)
