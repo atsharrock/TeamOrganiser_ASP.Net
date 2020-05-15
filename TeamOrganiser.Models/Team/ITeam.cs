@@ -8,5 +8,6 @@ namespace TeamOrganiser.Models.Team
     public interface ITeam
     {
         List<IPlayer> PlayerList { get; set; }
+        int TeamRating { get; }
     }
 }

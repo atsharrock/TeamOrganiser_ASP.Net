@@ -34,6 +34,18 @@ namespace TeamOrganiser.Tests
             Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
         }
 
+        [TestMethod]
+        public void CreateTeamsByPointSystemTest()
+        {
+            List<Team> SortedTeams = TeamSorter.CreateTeamsByPointSystem(GenerateFootballPlayers(), "Football");
+
+            Assert.IsNotNull(SortedTeams);
+            Assert.IsTrue(SortedTeams.Count == 2);
+            Assert.IsTrue(SortedTeams[0].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[0].TeamRating >= 0 && SortedTeams[0].TeamRating <= 100);
+        }
+
         private List<IPlayer> GenerateFootballPlayers()
         {
             List<IPlayer> output = new List<IPlayer>()

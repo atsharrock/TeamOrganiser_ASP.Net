@@ -11,5 +11,6 @@ namespace TeamOrganiser.Models.Players
         string LastName { get; set; }
         string Email { get; set; }
         string ContactNumber { get; set; }
+        int Rating { get; set; }
     }
 }

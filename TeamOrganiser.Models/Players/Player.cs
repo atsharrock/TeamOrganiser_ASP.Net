@@ -35,6 +35,8 @@ namespace TeamOrganiser.Models.Players
         [Display(Name = "Basketball")]
         public bool Basketball { get; set; }
 
+        public int Rating { get; set; }
+
         public Player(string firstName, string lastName, string email, string contactNumber, 
                         bool football, bool hockey, bool basketball)
         {

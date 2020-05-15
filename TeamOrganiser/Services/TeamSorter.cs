@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -111,6 +112,44 @@ namespace TeamOrganiser.Services
             Team teamA = new Team(listTeamA);
             Team teamB = new Team(listTeamB);
 
+            return new List<Team>() { teamA, teamB };
+        }
+
+        ///<summary>
+        /// Teams are sorted by trying to make the team scores even after each player is assigned
+        ///</summary>
+        public static List<Team> CreateTeamsByPointSystem(List<IPlayer> players, string sport)
+        {
+            List<IPlayer> playerscopy = new List<IPlayer>(players);
+            switch (sport)
+            {
+                case "Football":
+                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
+                    break;
+            }
+
+            List<IPlayer> teamAList = new List<IPlayer>();
+            List<IPlayer> teamBList = new List<IPlayer>();
+            int teamAScore = 0;
+            int teamBScore = 0;
+
+            foreach (IPlayer p in playerscopy)
+            {
+                int rating = p.Rating;
+                if (teamAScore <= teamBScore && teamAList.Count < players.Count / 2)
+                {
+                    teamAScore += rating;
+                    teamAList.Add(p);
+                }
+                else
+                {
+                    teamBScore += rating;
+                    teamBList.Add(p);
+                }
+            }
+
+            Team teamA = new Team(teamAList);
+            Team teamB = new Team(teamBList);
             return new List<Team>() { teamA, teamB };
         }
     }
