@@ -16,6 +16,75 @@ namespace TeamOrganiser.Services
     ///</summary>
     public static class TeamSorter
     {
+
+        ///<summary>
+        /// Sorts two teams as fairly as possible based on multiple methods.
+        /// All methods are compared to find the lowest score difference between each team.
+        ///</summary>
+        public static List<Team> CreateFairTeams(List<IPlayer> listOfPlayers, string sport)
+        {
+
+            List<Team> alternating = CreateTeamsByAlternating(listOfPlayers, sport);
+            List<Team> everyTwo = CreateTeamsByEveryTwo(listOfPlayers, sport);
+            List<Team> pointSystem = CreateTeamsByPointSystem(listOfPlayers, sport);
+            List<Team> buckets = CreateTeamsBySkillBuckets(listOfPlayers, sport);
+
+            int alternatingTeamAScore = 0; int alternatingTeamBScore = 0;
+            int everyTwoTeamAScore = 0; int everyTwoTeamBScore = 0;
+            int pointSystemTeamAScore = 0; int pointSystemTeamBScore = 0;
+            int bucketsTeamAScore = 0; int bucketsTeamBScore = 0;
+
+            for (int i = 0; i < 2; i++) // two teams
+            {
+                if (i == 0)
+                {
+                    alternatingTeamAScore += alternating[i].TeamRating;
+                    everyTwoTeamAScore += everyTwo[i].TeamRating;
+                    pointSystemTeamAScore += pointSystem[i].TeamRating;
+                    bucketsTeamAScore += buckets[i].TeamRating;
+                }
+                else
+                {
+                    alternatingTeamBScore += alternating[i].TeamRating;
+                    everyTwoTeamBScore += everyTwo[i].TeamRating;
+                    pointSystemTeamBScore += pointSystem[i].TeamRating;
+                    bucketsTeamBScore += buckets[i].TeamRating;
+                }
+            }
+
+            int alternatingScore = Math.Max(alternatingTeamAScore, alternatingTeamBScore) - Math.Min(alternatingTeamAScore, alternatingTeamBScore);
+            int everyTwoScore = Math.Max(everyTwoTeamAScore, everyTwoTeamBScore) - Math.Min(everyTwoTeamAScore, everyTwoTeamBScore);
+            int pointSystemScore = Math.Max(pointSystemTeamAScore, pointSystemTeamBScore) - Math.Min(pointSystemTeamAScore, pointSystemTeamBScore);
+            int bucketsScore = Math.Max(bucketsTeamAScore, bucketsTeamBScore) - Math.Min(bucketsTeamAScore, bucketsTeamBScore);
+
+            int winningScore = Math.Min(Math.Min(pointSystemScore, bucketsScore), Math.Min(alternatingScore, everyTwoScore));
+
+            if (alternatingScore == winningScore)
+            {
+                Console.WriteLine("Alternating Won");
+                return alternating;
+            }
+            else if (everyTwoScore == winningScore)
+            {
+                Console.WriteLine("everyTwoScore Won");
+                return everyTwo;
+            }
+            else if (pointSystemScore == winningScore)
+            {
+                Console.WriteLine("pointSystemScore Won");
+                return pointSystem;
+            }
+            else if (bucketsScore == winningScore)
+            {
+                Console.WriteLine("bucketsScore Won");
+                return buckets;
+            }
+
+            // default return.
+            return everyTwo;
+        }
+
+
         ///<summary>
         /// Teams are assigned a player one after the other in order of rating.
         ///</summary>
