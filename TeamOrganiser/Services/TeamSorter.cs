@@ -150,7 +150,84 @@ namespace TeamOrganiser.Services
 
             Team teamA = new Team(teamAList);
             Team teamB = new Team(teamBList);
+
             return new List<Team>() { teamA, teamB };
+        }
+
+        ///<summary>
+        /// Teams are sorted by players being assigned a skill bucket.
+        /// each team is then attempted to be given an equal amount of players
+        /// in each skill bucket.
+        ///</summary>
+        public static List<Team> CreateTeamsBySkillBuckets(List<IPlayer> players, string sport)
+        {
+
+            List<IPlayer> playerscopy = new List<IPlayer>(players);
+            switch (sport)
+            {
+                case "Football":
+                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
+                    break;
+            }
+
+            List<IPlayer> BucketOne = new List<IPlayer>();
+            List<IPlayer> BucketTwo = new List<IPlayer>();
+            List<IPlayer> BucketThree = new List<IPlayer>();
+            List<IPlayer> BucketFour = new List<IPlayer>();
+            List<IPlayer> BucketFive = new List<IPlayer>();
+
+            foreach (IPlayer p in playerscopy)
+            {
+                int rating = p.Rating;
+                if (rating <= 20)
+                {
+                    BucketOne.Add(p);
+                }
+                else if (rating > 20 && rating <= 40)
+                {
+                    BucketTwo.Add(p);
+                }
+                else if (rating > 40 && rating <= 60)
+                {
+                    BucketThree.Add(p);
+                }
+                else if (rating > 60 && rating <= 80)
+                {
+                    BucketFour.Add(p);
+                }
+                else if (rating > 80 && rating <= 100)
+                {
+                    BucketFive.Add(p);
+                }
+            }
+
+            List<List<IPlayer>> AllBuckets = new List<List<IPlayer>>() { BucketOne, BucketTwo, BucketThree, BucketFour, BucketFive };
+
+            List<IPlayer> listTeamA = new List<IPlayer>();
+            List<IPlayer> listTeamB = new List<IPlayer>();
+
+            int i = 0;
+            foreach (List<IPlayer> bucket in AllBuckets)
+            {
+                foreach (IPlayer p in bucket)
+                {
+                    if (i % 2 == 0)
+                    {
+                        listTeamA.Add(p);
+                    }
+                    else
+                    {
+                        listTeamB.Add(p);
+                    }
+                    i++;
+                }
+            }
+
+            Team teamA = new Team(listTeamA);
+            Team teamB = new Team(listTeamB);
+
+            return new List<Team>() { teamA, teamB };
+
         }
     }
 }
