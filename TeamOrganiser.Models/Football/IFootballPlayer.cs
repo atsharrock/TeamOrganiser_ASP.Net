@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser.Models.Football
 {
-    public interface IFootballPlayer
+    public interface IFootballPlayer : IPlayer
     {
         int Defence { get; set; }
         int CentreBack { get; set; }

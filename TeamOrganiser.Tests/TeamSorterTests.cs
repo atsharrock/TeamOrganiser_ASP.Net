@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
-using TeamOrganiser.Models.Team;
+using TeamOrganiser.Models.Teams;
 using TeamOrganiser.Services;
 
 namespace TeamOrganiser.Tests
@@ -70,9 +70,9 @@ namespace TeamOrganiser.Tests
             Assert.IsTrue(SortedTeams[0].TeamRating >= 0 && SortedTeams[0].TeamRating <= 100);
         }
 
-        private List<IPlayer> GenerateFootballPlayers()
+        private List<Player> GenerateFootballPlayers()
         {
-            List<IPlayer> output = new List<IPlayer>()
+            List<Player> output = new List<Player>()
             {
                 new FootballPlayer()
                 {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using TeamOrganiser.Models.Players;
 
-namespace TeamOrganiser.Models.Team
+namespace TeamOrganiser.Models.Teams
 {
     public interface ITeam
     {
-        List<IPlayer> PlayerList { get; set; }
+        List<Player> PlayerList { get; set; }
         int TeamRating { get; }
     }
 }

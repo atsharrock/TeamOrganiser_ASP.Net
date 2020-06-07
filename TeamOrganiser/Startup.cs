@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +42,9 @@ namespace TeamOrganiser
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddDbContext<TeamOrganiserContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TeamOrganiserContext")));
 
         }
 

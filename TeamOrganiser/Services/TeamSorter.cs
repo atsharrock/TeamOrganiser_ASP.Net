@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
-using TeamOrganiser.Models.Team;
+using TeamOrganiser.Models.Teams;
 
 namespace TeamOrganiser.Services
 {
@@ -21,7 +21,7 @@ namespace TeamOrganiser.Services
         /// Sorts two teams as fairly as possible based on multiple methods.
         /// All methods are compared to find the lowest score difference between each team.
         ///</summary>
-        public static List<Team> CreateFairTeams(List<IPlayer> listOfPlayers, string sport)
+        public static List<Team> CreateFairTeams(List<Player> listOfPlayers, string sport)
         {
 
             List<Team> alternating = CreateTeamsByAlternating(listOfPlayers, sport);
@@ -88,9 +88,9 @@ namespace TeamOrganiser.Services
         ///<summary>
         /// Teams are assigned a player one after the other in order of rating.
         ///</summary>
-        public static List<Team> CreateTeamsByAlternating(List<IPlayer> players, string sport)
+        public static List<Team> CreateTeamsByAlternating(List<Player> players, string sport)
         {
-            List<IPlayer> playerscopy = new List<IPlayer>(players);
+            List<Player> playerscopy = new List<Player>(players);
             switch (sport)
             {
                 case "Football":
@@ -101,8 +101,8 @@ namespace TeamOrganiser.Services
                     break;
             }
 
-            List<IPlayer> listTeamA = new List<IPlayer>();
-            List<IPlayer> listTeamB = new List<IPlayer>();
+            List<Player> listTeamA = new List<Player>();
+            List<Player> listTeamB = new List<Player>();
 
             for (int i = 0; i < playerscopy.Count(); i++)
             {
@@ -126,9 +126,9 @@ namespace TeamOrganiser.Services
         /// Teams are sorted by giving one team the best player. The next team
         /// get the next two best players and so on until there are no players left.
         ///</summary>
-        public static List<Team> CreateTeamsByEveryTwo(List<IPlayer> players, string sport)
+        public static List<Team> CreateTeamsByEveryTwo(List<Player> players, string sport)
         {
-            List<IPlayer> playerscopy = new List<IPlayer>(players);
+            List<Player> playerscopy = new List<Player>(players);
             switch (sport)
             {
                 case "Football":
@@ -139,8 +139,8 @@ namespace TeamOrganiser.Services
                     break;
             }
 
-            List<IPlayer> listTeamA = new List<IPlayer>();
-            List<IPlayer> listTeamB = new List<IPlayer>();
+            List<Player> listTeamA = new List<Player>();
+            List<Player> listTeamB = new List<Player>();
 
             listTeamA.Add(playerscopy[0]);
             listTeamB.Add(playerscopy[playerscopy.Count - 1]);
@@ -150,7 +150,7 @@ namespace TeamOrganiser.Services
             int counter = 0;
             int targetCount = 2;
             bool addTOListB = true;
-            foreach (IPlayer p in playerscopy)
+            foreach (Player p in playerscopy)
             {
                 if (counter == targetCount)
                 {
@@ -187,9 +187,9 @@ namespace TeamOrganiser.Services
         ///<summary>
         /// Teams are sorted by trying to make the team scores even after each player is assigned
         ///</summary>
-        public static List<Team> CreateTeamsByPointSystem(List<IPlayer> players, string sport)
+        public static List<Team> CreateTeamsByPointSystem(List<Player> players, string sport)
         {
-            List<IPlayer> playerscopy = new List<IPlayer>(players);
+            List<Player> playerscopy = new List<Player>(players);
             switch (sport)
             {
                 case "Football":
@@ -197,12 +197,12 @@ namespace TeamOrganiser.Services
                     break;
             }
 
-            List<IPlayer> teamAList = new List<IPlayer>();
-            List<IPlayer> teamBList = new List<IPlayer>();
+            List<Player> teamAList = new List<Player>();
+            List<Player> teamBList = new List<Player>();
             int teamAScore = 0;
             int teamBScore = 0;
 
-            foreach (IPlayer p in playerscopy)
+            foreach (Player p in playerscopy)
             {
                 int rating = p.Rating;
                 if (teamAScore <= teamBScore && teamAList.Count < players.Count / 2)
@@ -228,10 +228,10 @@ namespace TeamOrganiser.Services
         /// each team is then attempted to be given an equal amount of players
         /// in each skill bucket.
         ///</summary>
-        public static List<Team> CreateTeamsBySkillBuckets(List<IPlayer> players, string sport)
+        public static List<Team> CreateTeamsBySkillBuckets(List<Player> players, string sport)
         {
 
-            List<IPlayer> playerscopy = new List<IPlayer>(players);
+            List<Player> playerscopy = new List<Player>(players);
             switch (sport)
             {
                 case "Football":
@@ -239,13 +239,13 @@ namespace TeamOrganiser.Services
                     break;
             }
 
-            List<IPlayer> BucketOne = new List<IPlayer>();
-            List<IPlayer> BucketTwo = new List<IPlayer>();
-            List<IPlayer> BucketThree = new List<IPlayer>();
-            List<IPlayer> BucketFour = new List<IPlayer>();
-            List<IPlayer> BucketFive = new List<IPlayer>();
+            List<Player> BucketOne = new List<Player>();
+            List<Player> BucketTwo = new List<Player>();
+            List<Player> BucketThree = new List<Player>();
+            List<Player> BucketFour = new List<Player>();
+            List<Player> BucketFive = new List<Player>();
 
-            foreach (IPlayer p in playerscopy)
+            foreach (Player p in playerscopy)
             {
                 int rating = p.Rating;
                 if (rating <= 20)
@@ -270,15 +270,15 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            List<List<IPlayer>> AllBuckets = new List<List<IPlayer>>() { BucketOne, BucketTwo, BucketThree, BucketFour, BucketFive };
+            List<List<Player>> AllBuckets = new List<List<Player>>() { BucketOne, BucketTwo, BucketThree, BucketFour, BucketFive };
 
-            List<IPlayer> listTeamA = new List<IPlayer>();
-            List<IPlayer> listTeamB = new List<IPlayer>();
+            List<Player> listTeamA = new List<Player>();
+            List<Player> listTeamB = new List<Player>();
 
             int i = 0;
-            foreach (List<IPlayer> bucket in AllBuckets)
+            foreach (List<Player> bucket in AllBuckets)
             {
-                foreach (IPlayer p in bucket)
+                foreach (Player p in bucket)
                 {
                     if (i % 2 == 0)
                     {

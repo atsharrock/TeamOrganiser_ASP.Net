@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607230502_edit_FootballGame2")]
+    partial class edit_FootballGame2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,6 +248,75 @@ namespace TeamOrganiser.Data.Migrations
                     b.ToTable("UserAccount");
                 });
 
+            modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Attack")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AttackingMidfield")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CentreBack")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CentreForward")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CentreMidfield")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Defence")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DefensiveMidfield")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Forward")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FullBack")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Midfield")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sweeper")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WideMidfield")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WingBack")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Winger")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("FootballPlayer");
+                });
+
             modelBuilder.Entity("TeamOrganiser.Models.Players.Player", b =>
                 {
                     b.Property<int>("ID")
@@ -257,10 +328,6 @@ namespace TeamOrganiser.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ContactNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -286,57 +353,6 @@ namespace TeamOrganiser.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Player");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Player");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
-                {
-                    b.HasBaseType("TeamOrganiser.Models.Players.Player");
-
-                    b.Property<int>("Attack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AttackingMidfield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CentreBack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CentreForward")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CentreMidfield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Defence")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DefensiveMidfield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Forward")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FullBack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Midfield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Sweeper")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WideMidfield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WingBack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Winger")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("FootballPlayer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
