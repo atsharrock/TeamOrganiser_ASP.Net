@@ -12,6 +12,7 @@ namespace TeamOrganiser.Models.Teams
         public int Id { get; set; }
         public List<Player> PlayerList { get; set; }
         public int TeamRating { get; private set; }
+        public int TeamChemistry { get; set; }
 
         public Team(List<Player> playerList)
         {

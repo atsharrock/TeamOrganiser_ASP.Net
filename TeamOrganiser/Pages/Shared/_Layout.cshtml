@@ -13,11 +13,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="~/favicon.ico">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="~/admin-lte/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/admin-lte/css/adminlte.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Datatables -->
@@ -77,9 +77,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 Sports
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item treeview">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-futbol"></i>
                                 <p>
                                     Football
                                     <i class="right fas fa-angle-left"></i>
@@ -88,13 +88,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="Footballers" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="far fa fa-users nav-icon"></i>
                                         <p>Footballers</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="FootballGames" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="far fa fa-trophy nav-icon"></i>
                                         <p>Games</p>
                                     </a>
                                 </li>
@@ -111,14 +111,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="FieldHockeyPlayers" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa fa-users"></i>
                                         <p>Hockey Players</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="FootballGames" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Games</p>
+                                        <p>Hockey Games</p>
                                     </a>
                                 </li>
                             </ul>
@@ -134,20 +134,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="Basketballers" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa fa-users"></i>
                                         <p>Basketballers</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="FootballGames" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Games</p>
+                                        <p>Basketball Games</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </nav>
+
+
             
             <!-- /.sidebar-menu -->
             </div>
@@ -184,11 +186,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
-    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="~/admin-lte/js/adminlte.min.js"></script>
+    <script src="~/admin-lte/js/adminlte.js"></script>
     <!-- DataTables -->
     <script src="~/DataTables/datatables.js"></script>
     @RenderSection("Scripts", required: false)

@@ -16,8 +16,5 @@ namespace TeamOrganiser.Models.Football
         public DateTime EndTime { get; set; }
         public TimeSpan Duration { get; set; }
         public Team Winner { get; set; }
-
-
-
     }
 }
