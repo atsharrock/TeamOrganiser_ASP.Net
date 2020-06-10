@@ -12,9 +12,9 @@ namespace TeamOrganiser.Pages.FootballGames
 {
     public class CreateModel : PageModel
     {
-        private readonly TeamOrganiser.Data.TeamOrganiserContext _context;
+        private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public CreateModel(TeamOrganiser.Data.TeamOrganiserContext context)
+        public CreateModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }

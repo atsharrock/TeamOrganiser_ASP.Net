@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200610222006_footballgames")]
+    partial class footballgames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,45 +248,6 @@ namespace TeamOrganiser.Data.Migrations
                     b.ToTable("UserAccount");
                 });
 
-            modelBuilder.Entity("TeamOrganiser.Models.Football.FootballGame", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("TeamAId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TeamBId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WinnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeamAId");
-
-                    b.HasIndex("TeamBId");
-
-                    b.HasIndex("WinnerId");
-
-                    b.ToTable("FootballGame");
-                });
-
             modelBuilder.Entity("TeamOrganiser.Models.Players.Player", b =>
                 {
                     b.Property<int>("ID")
@@ -322,34 +285,11 @@ namespace TeamOrganiser.Data.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamId")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("Player");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Player");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Teams.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("TeamChemistry")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamRating")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
@@ -450,28 +390,6 @@ namespace TeamOrganiser.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Football.FootballGame", b =>
-                {
-                    b.HasOne("TeamOrganiser.Models.Teams.Team", "TeamA")
-                        .WithMany()
-                        .HasForeignKey("TeamAId");
-
-                    b.HasOne("TeamOrganiser.Models.Teams.Team", "TeamB")
-                        .WithMany()
-                        .HasForeignKey("TeamBId");
-
-                    b.HasOne("TeamOrganiser.Models.Teams.Team", "Winner")
-                        .WithMany()
-                        .HasForeignKey("WinnerId");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Players.Player", b =>
-                {
-                    b.HasOne("TeamOrganiser.Models.Teams.Team", null)
-                        .WithMany("PlayerList")
-                        .HasForeignKey("TeamId");
                 });
 #pragma warning restore 612, 618
         }

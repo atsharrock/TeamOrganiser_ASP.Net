@@ -12,9 +12,9 @@ namespace TeamOrganiser.Pages.FootballGames
 {
     public class DeleteModel : PageModel
     {
-        private readonly TeamOrganiser.Data.TeamOrganiserContext _context;
+        private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public DeleteModel(TeamOrganiser.Data.TeamOrganiserContext context)
+        public DeleteModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }

@@ -12,9 +12,9 @@ namespace TeamOrganiser.Pages.FootballGames
 {
     public class DetailsModel : PageModel
     {
-        private readonly TeamOrganiser.Data.TeamOrganiserContext _context;
+        private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public DetailsModel(TeamOrganiser.Data.TeamOrganiserContext context)
+        public DetailsModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }

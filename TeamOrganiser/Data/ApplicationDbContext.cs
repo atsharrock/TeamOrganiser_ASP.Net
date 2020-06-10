@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using TeamOrganiser.Models.Account;
 using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
+using TeamOrganiser.Models.Football;
 
 namespace TeamOrganiser.Data
 {
@@ -15,13 +16,17 @@ namespace TeamOrganiser.Data
             : base(options)
         {
         }
-        public DbSet<TeamOrganiser.Models.Account.UserAccount> UserAccount { get; set; }
-        public DbSet<TeamOrganiser.Models.FootballPlayer> FootballPlayer { get; set; }
-        public DbSet<TeamOrganiser.Models.Players.Player> Player { get; set; }
+
+        public DbSet<UserAccount> UserAccount { get; set; }
+        public DbSet<FootballPlayer> FootballPlayer { get; set; }
+        public DbSet<Player> Player { get; set; }
+        public DbSet<FootballGame> FootballGame { get; set; }
 
         public ApplicationDbContext()
         {
 
         }
+
+        
     }
 }

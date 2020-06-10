@@ -13,9 +13,9 @@ namespace TeamOrganiser.Pages.FootballGames
 {
     public class EditModel : PageModel
     {
-        private readonly TeamOrganiser.Data.TeamOrganiserContext _context;
+        private readonly TeamOrganiser.Data.ApplicationDbContext _context;
 
-        public EditModel(TeamOrganiser.Data.TeamOrganiserContext context)
+        public EditModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
         }
