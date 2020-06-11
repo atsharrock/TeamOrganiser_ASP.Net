@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser.Services
@@ -13,59 +14,74 @@ namespace TeamOrganiser.Services
         /// 100% chemistry is achieved by all players being in one of their
         /// top 3 positions with no duplicated positions.
         ///</summary>
-        public static float SetTeamChemistry(List<Player> team)
+        public static float SetTeamChemistry(List<Player> team, string sport)
         {
-            /*
-            List<Player> TeamList = new List<Player>(team); 
-
-            Dictionary<Player, String> bestPositions = new Dictionary<Player, string>();
-            float score = 0;
-            int i = 0;
-            while (i < TeamList.Count) // queue.hasNext()
+            float result = 0;
+            List<Player> playerscopy = new List<Player>(team);
+            switch (sport)
             {
-                Player player = TeamList[i];
+                case "Football":
+                    List<FootballPlayer> FootballTeam = playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
+                    result = SetFootballChemistry(FootballTeam);
+                    break;
+                default:
+                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
+                    break;
+            }
+
+            return result;
+        }
+
+        private static float SetFootballChemistry(List<FootballPlayer> team)
+        {
+            Dictionary<FootballPlayer, String> bestPositions = new Dictionary<FootballPlayer, string>();
+            float score = 0;
+
+            int i = 0;
+            while (i < team.Count) // queue.hasNext()
+            {
+                FootballPlayer player = team[i];
                 List<String> playersBestPositions = player.GetTopPositions();
                 for (int j = 0; j < playersBestPositions.Count; j++)
                 {
-                    String topPosition = playersBestPositions.get(j);
-                    if (!bestPositions.containsValue(topPosition))
+                    String topPosition = playersBestPositions[j];
+                    if (!bestPositions.ContainsValue(topPosition))
                     {
-                        bestPositions.put(player, topPosition);
-                        queue.remove();
-                        score += player.getAPositionRating((topPosition));
+                        bestPositions.Add(player, topPosition);
+                        team.RemoveAt(i);
+                        score += player.GetPositionRating((topPosition));
                         break;
                     }
                     else
                     {
-                        Player originalPlayer = MapUtils.getKey(bestPositions, topPosition);
-                        int originalRating = originalPlayer.getAPositionRating(topPosition);
-                        int newPlayerRating = player.getAPositionRating(topPosition);
+                        FootballPlayer originalPlayer = bestPositions.FirstOrDefault(p => p.Value.Equals(topPosition)).Key;
+                        int originalRating = originalPlayer.GetPositionRating(topPosition);
+                        int newPlayerRating = player.GetPositionRating(topPosition);
                         if (newPlayerRating > originalRating)
                         {
-                            bestPositions.put(player, topPosition);
+                            bestPositions.Add(player, topPosition);
                             score += newPlayerRating - originalRating;
-                            queue.add(originalPlayer);
+                            team.Add(originalPlayer);
                             break;
                         }
                     }
-                    if (j == playersBestPositions.size() - 1)
+                    if (j == playersBestPositions.Count() - 1)
                     {
-                        bestPositions.put(player, "PositionNotFound");
+                        bestPositions.Add(player, "PositionNotFound");
                     }
                 }
             }
 
             float maxScore = 0;
-            foreach (Player player in team)
+            foreach (FootballPlayer player in team)
             {
-                String bestPos = player.getBestPosition();
-                maxScore += player.getAPositionRating(bestPos);
+                String bestPos = player.GetTopPositions()[0];
+                maxScore += player.GetPositionRating(bestPos);
             }
 
             return (score / maxScore) * 100;
-            */
 
-            return 1.2F;
+            //return 1.2f;
         }
     }
 }

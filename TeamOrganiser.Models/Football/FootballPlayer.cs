@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using TeamOrganiser.Models.Football;
 using TeamOrganiser.Models.Players;
@@ -45,16 +46,20 @@ namespace TeamOrganiser.Models
         {
             int rating = 0;
             var TopPositions = GetTopPositions();
-            foreach (KeyValuePair<string, int> entry in TopPositions)
+            foreach (var position in TopPositions)
             {
-                // do something with entry.Value or entry.Key
-                rating += entry.Value;
+                rating += GetPositionRating(position);
             }
 
             return rating/3;
         }
 
-        public Dictionary<string, int> GetTopPositions()
+        public int GetPositionRating(string position)
+        {
+            return (int)this.GetType().GetProperty(position).GetValue(this);
+        }
+
+        public List<string> GetTopPositions()
         {
             Dictionary<string, int> PositionRatings = new Dictionary<string, int>()
             {
@@ -78,7 +83,7 @@ namespace TeamOrganiser.Models
             myList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
             myList.Reverse();
 
-            var TopThree = myList.Take(3).ToDictionary(d => d.Key, d => d.Value);
+            var TopThree = myList.Take(3).ToDictionary(d => d.Key, d => d.Value).Keys.ToList();
 
             return TopThree;
         }
