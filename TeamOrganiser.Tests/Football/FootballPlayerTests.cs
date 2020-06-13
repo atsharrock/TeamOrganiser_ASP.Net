@@ -10,7 +10,7 @@ using TeamOrganiser.Models.Players;
 namespace TeamOrganiser.Tests
 {
     [TestClass]
-    public class PlayerTests
+    public class FootballPlayerTests
     {
         [TestMethod]
         public void SetPlayerRatingTest()

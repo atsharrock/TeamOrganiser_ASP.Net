@@ -14,25 +14,7 @@ namespace TeamOrganiser.Services
         /// 100% chemistry is achieved by all players being in one of their
         /// top 3 positions with no duplicated positions.
         ///</summary>
-        public static float SetTeamChemistry(List<Player> team, string sport)
-        {
-            float result = 0;
-            List<Player> playerscopy = new List<Player>(team);
-            switch (sport)
-            {
-                case "Football":
-                    List<FootballPlayer> FootballTeam = playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    result = SetFootballChemistry(FootballTeam);
-                    break;
-                default:
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-            }
-
-            return result;
-        }
-
-        private static float SetFootballChemistry(List<FootballPlayer> team)
+        public static int SetFootballChemistry(List<FootballPlayer> team)
         {
             Dictionary<FootballPlayer, String> bestPositions = new Dictionary<FootballPlayer, string>();
             float score = 0;
@@ -79,9 +61,7 @@ namespace TeamOrganiser.Services
                 maxScore += player.GetPositionRating(bestPos);
             }
 
-            return (score / maxScore) * 100;
-
-            //return 1.2f;
+            return (int) (score / maxScore) * 100;
         }
     }
 }

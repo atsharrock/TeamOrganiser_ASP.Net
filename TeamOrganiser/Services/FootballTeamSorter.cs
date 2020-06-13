@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TeamOrganiser.Models;
+using TeamOrganiser.Models.Football;
 using TeamOrganiser.Models.Players;
 using TeamOrganiser.Models.Teams;
 
@@ -14,20 +15,20 @@ namespace TeamOrganiser.Services
     /// of fair teams. Teams can be sorted randomly,
     /// based on their ratings or form.
     ///</summary>
-    public static class TeamSorter
+    public static class FootballTeamSorter
     {
 
         ///<summary>
         /// Sorts two teams as fairly as possible based on multiple methods.
         /// All methods are compared to find the lowest score difference between each team.
         ///</summary>
-        public static List<Team> CreateFairTeams(List<Player> listOfPlayers, string sport)
+        public static List<FootballTeam> CreateFairTeams(List<FootballPlayer> listOfPlayers)
         {
 
-            List<Team> alternating = CreateTeamsByAlternating(listOfPlayers, sport);
-            List<Team> everyTwo = CreateTeamsByEveryTwo(listOfPlayers, sport);
-            List<Team> pointSystem = CreateTeamsByPointSystem(listOfPlayers, sport);
-            List<Team> buckets = CreateTeamsBySkillBuckets(listOfPlayers, sport);
+            List<FootballTeam> alternating = CreateTeamsByAlternating(listOfPlayers);
+            List<FootballTeam> everyTwo = CreateTeamsByEveryTwo(listOfPlayers);
+            List<FootballTeam> pointSystem = CreateTeamsByPointSystem(listOfPlayers);
+            List<FootballTeam> buckets = CreateTeamsBySkillBuckets(listOfPlayers);
 
             int alternatingTeamAScore = 0; int alternatingTeamBScore = 0;
             int everyTwoTeamAScore = 0; int everyTwoTeamBScore = 0;
@@ -88,23 +89,13 @@ namespace TeamOrganiser.Services
         ///<summary>
         /// Teams are assigned a player one after the other in order of rating.
         ///</summary>
-        public static List<Team> CreateTeamsByAlternating(List<Player> players, string sport)
+        public static List<FootballTeam> CreateTeamsByAlternating(List<FootballPlayer> players)
         {
-            List<Player> playerscopy = new List<Player>(players);
-            switch (sport)
-            {
-                case "Football":
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-                default:
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-            }
+            players = players.OrderBy(o => o.Rating).ToList();
+            List<FootballPlayer> listTeamA = new List<FootballPlayer>();
+            List<FootballPlayer> listTeamB = new List<FootballPlayer>();
 
-            List<Player> listTeamA = new List<Player>();
-            List<Player> listTeamB = new List<Player>();
-
-            for (int i = 0; i < playerscopy.Count(); i++)
+            for (int i = 0; i < players.Count(); i++)
             {
                 if (i % 2 == 0)
                 {
@@ -116,41 +107,32 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            Team teamA = new Team(listTeamA);
-            Team teamB = new Team(listTeamB);
+            FootballTeamService footballTeamService = new FootballTeamService();
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
 
-            return new List<Team>() { teamA, teamB };
+            return new List<FootballTeam>() { teamA, teamB };
         }
 
         ///<summary>
         /// Teams are sorted by giving one team the best player. The next team
         /// get the next two best players and so on until there are no players left.
         ///</summary>
-        public static List<Team> CreateTeamsByEveryTwo(List<Player> players, string sport)
+        public static List<FootballTeam> CreateTeamsByEveryTwo(List<FootballPlayer> players)
         {
-            List<Player> playerscopy = new List<Player>(players);
-            switch (sport)
-            {
-                case "Football":
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-                default:
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-            }
+            players = players.OrderBy(o => o.Rating).ToList();
+            List<FootballPlayer> listTeamA = new List<FootballPlayer>();
+            List<FootballPlayer> listTeamB = new List<FootballPlayer>();
 
-            List<Player> listTeamA = new List<Player>();
-            List<Player> listTeamB = new List<Player>();
-
-            listTeamA.Add(playerscopy[0]);
-            listTeamB.Add(playerscopy[playerscopy.Count - 1]);
-            playerscopy.RemoveAt(0);
-            playerscopy.RemoveAt(playerscopy.Count - 1);
+            listTeamA.Add(players[0]);
+            listTeamB.Add(players[players.Count - 1]);
+            players.RemoveAt(0);
+            players.RemoveAt(players.Count - 1);
 
             int counter = 0;
             int targetCount = 2;
             bool addTOListB = true;
-            foreach (Player p in playerscopy)
+            foreach (FootballPlayer p in players)
             {
                 if (counter == targetCount)
                 {
@@ -178,49 +160,44 @@ namespace TeamOrganiser.Services
 
             }
 
-            Team teamA = new Team(listTeamA);
-            Team teamB = new Team(listTeamB);
+            FootballTeamService footballTeamService = new FootballTeamService();
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
 
-            return new List<Team>() { teamA, teamB };
+            return new List<FootballTeam>() { teamA, teamB };
         }
 
         ///<summary>
         /// Teams are sorted by trying to make the team scores even after each player is assigned
         ///</summary>
-        public static List<Team> CreateTeamsByPointSystem(List<Player> players, string sport)
+        public static List<FootballTeam> CreateTeamsByPointSystem(List<FootballPlayer> players)
         {
-            List<Player> playerscopy = new List<Player>(players);
-            switch (sport)
-            {
-                case "Football":
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-            }
-
-            List<Player> teamAList = new List<Player>();
-            List<Player> teamBList = new List<Player>();
+            players = players.OrderBy(o => o.Rating).ToList();
+            List<FootballPlayer> listTeamA = new List<FootballPlayer>();
+            List<FootballPlayer> listTeamB = new List<FootballPlayer>();
             int teamAScore = 0;
             int teamBScore = 0;
 
-            foreach (Player p in playerscopy)
+            foreach (FootballPlayer p in players)
             {
                 int rating = p.Rating;
-                if (teamAScore <= teamBScore && teamAList.Count < players.Count / 2)
+                if (teamAScore <= teamBScore && listTeamA.Count < players.Count / 2)
                 {
                     teamAScore += rating;
-                    teamAList.Add(p);
+                    listTeamA.Add(p);
                 }
                 else
                 {
                     teamBScore += rating;
-                    teamBList.Add(p);
+                    listTeamB.Add(p);
                 }
             }
 
-            Team teamA = new Team(teamAList);
-            Team teamB = new Team(teamBList);
+            FootballTeamService footballTeamService = new FootballTeamService();
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
 
-            return new List<Team>() { teamA, teamB };
+            return new List<FootballTeam>() { teamA, teamB };
         }
 
         ///<summary>
@@ -228,24 +205,17 @@ namespace TeamOrganiser.Services
         /// each team is then attempted to be given an equal amount of players
         /// in each skill bucket.
         ///</summary>
-        public static List<Team> CreateTeamsBySkillBuckets(List<Player> players, string sport)
+        public static List<FootballTeam> CreateTeamsBySkillBuckets(List<FootballPlayer> players)
         {
+            players = players.OrderBy(o => o.Rating).ToList();
 
-            List<Player> playerscopy = new List<Player>(players);
-            switch (sport)
-            {
-                case "Football":
-                    playerscopy.Cast<FootballPlayer>().OrderBy(o => o.Rating).ToList();
-                    break;
-            }
+            List<FootballPlayer> BucketOne = new List<FootballPlayer>();
+            List<FootballPlayer> BucketTwo = new List<FootballPlayer>();
+            List<FootballPlayer> BucketThree = new List<FootballPlayer>();
+            List<FootballPlayer> BucketFour = new List<FootballPlayer>();
+            List<FootballPlayer> BucketFive = new List<FootballPlayer>();
 
-            List<Player> BucketOne = new List<Player>();
-            List<Player> BucketTwo = new List<Player>();
-            List<Player> BucketThree = new List<Player>();
-            List<Player> BucketFour = new List<Player>();
-            List<Player> BucketFive = new List<Player>();
-
-            foreach (Player p in playerscopy)
+            foreach (FootballPlayer p in players)
             {
                 int rating = p.Rating;
                 if (rating <= 20)
@@ -270,15 +240,15 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            List<List<Player>> AllBuckets = new List<List<Player>>() { BucketOne, BucketTwo, BucketThree, BucketFour, BucketFive };
+            List<List<FootballPlayer>> AllBuckets = new List<List<FootballPlayer>>() { BucketOne, BucketTwo, BucketThree, BucketFour, BucketFive };
 
-            List<Player> listTeamA = new List<Player>();
-            List<Player> listTeamB = new List<Player>();
+            List<FootballPlayer> listTeamA = new List<FootballPlayer>();
+            List<FootballPlayer> listTeamB = new List<FootballPlayer>();
 
             int i = 0;
-            foreach (List<Player> bucket in AllBuckets)
+            foreach (List<FootballPlayer> bucket in AllBuckets)
             {
-                foreach (Player p in bucket)
+                foreach (FootballPlayer p in bucket)
                 {
                     if (i % 2 == 0)
                     {
@@ -292,10 +262,11 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            Team teamA = new Team(listTeamA);
-            Team teamB = new Team(listTeamB);
+            FootballTeamService footballTeamService = new FootballTeamService();
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
 
-            return new List<Team>() { teamA, teamB };
+            return new List<FootballTeam>() { teamA, teamB };
 
         }
     }

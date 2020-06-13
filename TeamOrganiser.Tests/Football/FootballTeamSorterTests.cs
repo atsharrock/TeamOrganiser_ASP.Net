@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TeamOrganiser.Models;
-using TeamOrganiser.Models.Players;
+using TeamOrganiser.Models.Football;
 using TeamOrganiser.Models.Teams;
 using TeamOrganiser.Services;
 
 namespace TeamOrganiser.Tests
 {
     [TestClass]
-    public class TeamSorterTests
+    public class FootballTeamSorterTests
     {
         [TestMethod]
         public void CreateTeamsByAlternatingTest()
         {
-            List<Team> SortedTeams = TeamSorter.CreateTeamsByAlternating(GenerateFootballPlayers(), "Football");
+            List<FootballTeam> SortedTeams = FootballTeamSorter.CreateTeamsByAlternating(GenerateFootballPlayers());
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
@@ -26,7 +26,7 @@ namespace TeamOrganiser.Tests
         [TestMethod]
         public void CreateTeamsByEveryTwoTest()
         {
-            List<Team> SortedTeams = TeamSorter.CreateTeamsByEveryTwo(GenerateFootballPlayers(), "Football");
+            List<FootballTeam> SortedTeams = FootballTeamSorter.CreateTeamsByEveryTwo(GenerateFootballPlayers());
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
@@ -37,7 +37,7 @@ namespace TeamOrganiser.Tests
         [TestMethod]
         public void CreateTeamsByPointSystemTest()
         {
-            List<Team> SortedTeams = TeamSorter.CreateTeamsByPointSystem(GenerateFootballPlayers(), "Football");
+            List<FootballTeam> SortedTeams = FootballTeamSorter.CreateTeamsByPointSystem(GenerateFootballPlayers());
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
@@ -49,7 +49,7 @@ namespace TeamOrganiser.Tests
         [TestMethod]
         public void CreateTeamsBySkillBucketsTest()
         {
-            List<Team> SortedTeams = TeamSorter.CreateTeamsBySkillBuckets(GenerateFootballPlayers(), "Football");
+            List<FootballTeam> SortedTeams = FootballTeamSorter.CreateTeamsBySkillBuckets(GenerateFootballPlayers());
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
@@ -61,7 +61,7 @@ namespace TeamOrganiser.Tests
         [TestMethod]
         public void CreateFairTeamsTest()
         {
-            List<Team> SortedTeams = TeamSorter.CreateFairTeams(GenerateFootballPlayers(), "Football");
+            List<FootballTeam> SortedTeams = FootballTeamSorter.CreateFairTeams(GenerateFootballPlayers());
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
@@ -70,9 +70,9 @@ namespace TeamOrganiser.Tests
             Assert.IsTrue(SortedTeams[0].TeamRating >= 0 && SortedTeams[0].TeamRating <= 100);
         }
 
-        private List<Player> GenerateFootballPlayers()
+        private List<FootballPlayer> GenerateFootballPlayers()
         {
-            List<Player> output = new List<Player>()
+            List<FootballPlayer> output = new List<FootballPlayer>()
             {
                 new FootballPlayer()
                 {
