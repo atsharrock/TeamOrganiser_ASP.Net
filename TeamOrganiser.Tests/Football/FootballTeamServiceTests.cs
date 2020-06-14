@@ -1,29 +1,36 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NuGet.Frameworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TeamOrganiser.Models;
 using TeamOrganiser.Models.Football;
-using TeamOrganiser.Models.Players;
-using TeamOrganiser.Models.Teams;
 using TeamOrganiser.Services;
 
-namespace TeamOrganiser.Tests
+namespace TeamOrganiser.Tests.Football
 {
     [TestClass]
-    public class ChemistryTests
+    public class FootballTeamServiceTests
     {
         [TestMethod]
-        public void GetTeamChemistryTest()
+        public void CreateFootballTeamTest()
         {
-            List<FootballPlayer> players = GenerateFootballPlayers().Take(5).ToList();
-            int chemistry = TeamChemistry.SetFootballChemistry(players);
+            List<FootballPlayer> TeamOneList = GenerateFootballPlayers().Take(5).ToList();
+            List<FootballPlayer> TeamTwoList = Enumerable.Reverse(GenerateFootballPlayers()).Take(5).ToList();
 
-            Assert.IsNotNull(chemistry);
-            Assert.AreNotEqual(0, chemistry); // Chemistry should never be zero.
-            Assert.IsTrue(chemistry >= 0 && chemistry <= 100);
+            FootballTeamService footballTeamService = new FootballTeamService();
+            FootballTeam TeamOne = footballTeamService.CreateTeam(TeamOneList);
+            FootballTeam TeamTwo = footballTeamService.CreateTeam(TeamTwoList);
+
+            Assert.IsNotNull(TeamOne);
+            Assert.IsTrue(TeamOne.PlayerList.Count == 5);
+            Assert.IsTrue(TeamOne.TeamRating >= 0 && TeamOne.TeamRating <= 100);
+            Assert.IsTrue(TeamOne.TeamChemistryRating >= 0 && TeamOne.TeamChemistryRating <= 100);
+
+            Assert.IsNotNull(TeamTwo);
+            Assert.IsTrue(TeamTwo.PlayerList.Count == 5);
+            Assert.IsTrue(TeamTwo.TeamRating >= 0 && TeamTwo.TeamRating <= 100);
+            Assert.IsTrue(TeamTwo.TeamChemistryRating >= 0 && TeamTwo.TeamChemistryRating <= 100);
         }
 
         private List<FootballPlayer> GenerateFootballPlayers()

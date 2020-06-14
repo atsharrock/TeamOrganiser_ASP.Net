@@ -16,13 +16,14 @@ namespace TeamOrganiser.Services
         ///</summary>
         public static int SetFootballChemistry(List<FootballPlayer> team)
         {
+            List<FootballPlayer> teamCopy = new List<FootballPlayer>(team);
             Dictionary<FootballPlayer, String> bestPositions = new Dictionary<FootballPlayer, string>();
-            float score = 0;
+            float score = 0f;
 
             int i = 0;
-            while (i < team.Count) // queue.hasNext()
+            while (i < teamCopy.Count) // queue.hasNext()
             {
-                FootballPlayer player = team[i];
+                FootballPlayer player = teamCopy[i];
                 List<String> playersBestPositions = player.GetTopPositions();
                 for (int j = 0; j < playersBestPositions.Count; j++)
                 {
@@ -30,8 +31,8 @@ namespace TeamOrganiser.Services
                     if (!bestPositions.ContainsValue(topPosition))
                     {
                         bestPositions.Add(player, topPosition);
-                        team.RemoveAt(i);
-                        score += player.GetPositionRating((topPosition));
+                        teamCopy.RemoveAt(i);
+                        score += player.GetPositionRating(topPosition);
                         break;
                     }
                     else
@@ -41,27 +42,38 @@ namespace TeamOrganiser.Services
                         int newPlayerRating = player.GetPositionRating(topPosition);
                         if (newPlayerRating > originalRating)
                         {
-                            bestPositions.Add(player, topPosition);
+                            if (bestPositions.ContainsKey(player))
+                            {
+                                bestPositions[player] = topPosition;
+                            }
+                            else
+                            {
+                                bestPositions.Add(player, topPosition);
+                            }
                             score += newPlayerRating - originalRating;
-                            team.Add(originalPlayer);
+                            teamCopy.Add(originalPlayer);
+                            teamCopy.Remove(player);
+                            bestPositions.Remove(originalPlayer);
                             break;
                         }
                     }
                     if (j == playersBestPositions.Count() - 1)
                     {
                         bestPositions.Add(player, "PositionNotFound");
+                        teamCopy.Remove(player);
                     }
                 }
             }
 
-            float maxScore = 0;
+            float maxScore = 0f;
             foreach (FootballPlayer player in team)
             {
                 String bestPos = player.GetTopPositions()[0];
                 maxScore += player.GetPositionRating(bestPos);
             }
 
-            return (int) (score / maxScore) * 100;
+            var result = ((score / maxScore) * 100);
+            return (int)result;
         }
     }
 }

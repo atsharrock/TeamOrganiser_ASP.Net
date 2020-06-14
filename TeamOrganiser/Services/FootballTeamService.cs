@@ -17,7 +17,7 @@ namespace TeamOrganiser.Services
             {
                 PlayerList = players,
                 TeamRating = GetTeamRating(players),
-                //TeamChemistryRating = TeamChemistry.SetFootballChemistry(players)
+                TeamChemistryRating = TeamChemistry.SetFootballChemistry(players)
             };
 
             return team;
