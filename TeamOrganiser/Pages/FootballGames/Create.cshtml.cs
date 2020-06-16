@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TeamOrganiser.Data;
+using TeamOrganiser.Models;
 using TeamOrganiser.Models.Football;
 
 namespace TeamOrganiser.Pages.FootballGames
@@ -26,6 +27,8 @@ namespace TeamOrganiser.Pages.FootballGames
 
         [BindProperty]
         public FootballGame FootballGame { get; set; }
+
+        public List<FootballPlayer> SelectedFootballPlayers { get; set; }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://aka.ms/RazorPagesCRUD.

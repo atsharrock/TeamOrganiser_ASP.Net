@@ -8,47 +8,53 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGameModalButton">
+        Create Football Game
+    </button>
+
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FootballGame[0].Address)
+                @Html.DisplayNameFor(model => model.FootballGames[0].Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FootballGame[0].StartTime)
+                @Html.DisplayNameFor(model => model.FootballGames[0].StartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FootballGame[0].EndTime)
+                @Html.DisplayNameFor(model => model.FootballGames[0].EndTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FootballGame[0].Duration)
+                @Html.DisplayNameFor(model => model.FootballGames[0].Duration)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.FootballGame) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.FootballGames)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@await Html.PartialAsync("~/Pages/FootballGames/_CreateFormModal.cshtml")

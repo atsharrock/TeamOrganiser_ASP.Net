@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TeamOrganiser.Models.Teams;
 
@@ -9,6 +10,7 @@ namespace TeamOrganiser.Models.Football
         [Key]
         public int Id { get; set; }
 
+        public List<FootballPlayer> Players { get; set; }
         public Team TeamA { get; set; }
         public Team TeamB { get; set; }
         public string Address { get; set; }
@@ -16,5 +18,10 @@ namespace TeamOrganiser.Models.Football
         public DateTime EndTime { get; set; }
         public TimeSpan Duration { get; set; }
         public Team Winner { get; set; }
+
+        public FootballGame()
+        {
+
+        }
     }
 }

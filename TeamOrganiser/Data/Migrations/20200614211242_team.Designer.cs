@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200614211242_team")]
+    partial class team
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,9 +383,6 @@ namespace TeamOrganiser.Data.Migrations
                     b.Property<int>("DefensiveMidfield")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FootballGameId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Forward")
                         .HasColumnType("int");
 
@@ -404,8 +403,6 @@ namespace TeamOrganiser.Data.Migrations
 
                     b.Property<int>("Winger")
                         .HasColumnType("int");
-
-                    b.HasIndex("FootballGameId");
 
                     b.HasDiscriminator().HasValue("FootballPlayer");
                 });
@@ -474,13 +471,6 @@ namespace TeamOrganiser.Data.Migrations
                     b.HasOne("TeamOrganiser.Models.Teams.Team", "Winner")
                         .WithMany()
                         .HasForeignKey("WinnerId");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
-                {
-                    b.HasOne("TeamOrganiser.Models.Football.FootballGame", null)
-                        .WithMany("Players")
-                        .HasForeignKey("FootballGameId");
                 });
 #pragma warning restore 612, 618
         }

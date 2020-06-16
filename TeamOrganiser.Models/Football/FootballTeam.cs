@@ -8,8 +8,6 @@ namespace TeamOrganiser.Models.Football
 {
     public class FootballTeam : Team
     {
-        [Key]
-        public int Id { get; set; }
         public List<FootballPlayer> PlayerList { get; set; }
     }
 }
