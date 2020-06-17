@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using TeamOrganiser.Data;
+using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
 
 namespace TeamOrganiser
@@ -23,7 +25,8 @@ namespace TeamOrganiser
 
         public async Task OnGetAsync()
         {
-            Player = await _context.Player.ToListAsync();
+            Player = _context.Player.AsEnumerable()
+                .Where(t => !t.GetType().IsSubclassOf(typeof(Player))).ToList();
         }
     }
 }

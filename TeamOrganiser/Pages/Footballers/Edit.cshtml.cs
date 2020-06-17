@@ -39,11 +39,6 @@ namespace TeamOrganiser
 
         public async Task<IActionResult> OnPostAsync(FootballPlayer FootballPlayer)
         {
-            if (!ModelState.IsValid || FootballPlayer is null)
-            {
-                return Content("Error - Football player is invalid.");
-            }
-
             FootballPlayer FootballPlayerToUpdate = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == FootballPlayer.ID).ConfigureAwait(false);
 
             if (null == FootballPlayerToUpdate)

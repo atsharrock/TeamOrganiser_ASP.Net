@@ -10,7 +10,7 @@ namespace TeamOrganiser.Models.Football
         [Key]
         public int Id { get; set; }
 
-        public List<FootballPlayer> Players { get; set; }
+        public List<FootballPlayer> Players { get; set; } = new List<FootballPlayer>();
         public Team TeamA { get; set; }
         public Team TeamB { get; set; }
         public string Address { get; set; }

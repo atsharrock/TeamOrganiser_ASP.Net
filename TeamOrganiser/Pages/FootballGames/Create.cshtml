@@ -13,14 +13,26 @@
     <div class="col-md-4">
         <form method="post">
 
-            <textarea>
-                @foreach (FootballPlayer p in Model.SelectedFootballPlayers)
-                {
-                    Html.Raw($"{p.FirstName} {p.LastName}");
-                }
-            </textarea>
-
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Defence</th>
+                    <th>Midfield</th>
+                    <th>Forward</th>
+                    <th>Select</th>
+                </tr>
+                @for (var i = 0; i < Model.AllFootballPlayers.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model.AllFootballPlayers[i].FirstName @Model.AllFootballPlayers[i].LastName</td>
+                        <td>@Model.AllFootballPlayers[i].Defence</td>
+                        <td>@Model.AllFootballPlayers[i].Midfield</td>
+                        <td>@Model.AllFootballPlayers[i].Forward</td>
+                        <td><input name="SelectedPlayers" type="checkbox" value="@Model.AllFootballPlayers[i].ID" /></td>
+                    </tr>
+                }
+            </table>
             <div class="form-group">
                 <label asp-for="FootballGame.Address" class="control-label"></label>
                 <input asp-for="FootballGame.Address" class="form-control" />
@@ -38,11 +50,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="FootballGame.Duration" class="control-label"></label>
-                <input asp-for="FootballGame.Duration" class="form-control" />
+                <input asp-for="FootballGame.Duration" class="form-control" type="number" />
                 <span asp-validation-for="FootballGame.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -54,4 +66,26 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+
+
+    $.post('/', $('#createForm').serialize(), function (data) {
+        $('#createModal').modal('toggle');
+        if (data.substring(0, 5) != "Error") {
+            $('#successModalMessage').text(data);
+            $('#success_tic').modal('toggle');
+
+            setTimeout(function () {
+                location.reload();
+            }, 2000);
+        }
+        else {
+            $('#errorModalMessage').text(data);
+            $('#errorModal').modal('toggle');
+        }
+
+    });
+
+</script>
 }
