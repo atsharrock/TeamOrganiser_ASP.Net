@@ -28,7 +28,7 @@ namespace TeamOrganiser.Pages.FootballGames
                 return NotFound();
             }
 
-            FootballGame = await _context.FootballGame.FirstOrDefaultAsync(m => m.Id == id);
+            FootballGame = await _context.FootballGames.FirstOrDefaultAsync(m => m.Id == id);
 
             if (FootballGame == null)
             {

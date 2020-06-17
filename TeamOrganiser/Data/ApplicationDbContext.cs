@@ -17,16 +17,11 @@ namespace TeamOrganiser.Data
         {
         }
 
-        public DbSet<UserAccount> UserAccount { get; set; }
-        public DbSet<FootballPlayer> FootballPlayer { get; set; }
-        public DbSet<Player> Player { get; set; }
-        public DbSet<FootballGame> FootballGame { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<FootballPlayer> FootballPlayers { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<FootballGame> FootballGames { get; set; }
+        public DbSet<FootballTeam> FootballTeams { get; set; }
 
-        public ApplicationDbContext()
-        {
-
-        }
-
-        
     }
 }

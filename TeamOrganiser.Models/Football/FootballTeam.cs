@@ -8,6 +8,8 @@ namespace TeamOrganiser.Models.Football
 {
     public class FootballTeam : Team
     {
-        public List<FootballPlayer> PlayerList { get; set; }
+        public virtual List<FootballPlayer> FootballPlayers { get; set; }
+
+        public virtual ICollection<FootballGame> FootballGames { get; set; }
     }
 }

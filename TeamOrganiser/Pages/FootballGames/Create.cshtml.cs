@@ -20,7 +20,7 @@ namespace TeamOrganiser.Pages.FootballGames
         public CreateModel(TeamOrganiser.Data.ApplicationDbContext context)
         {
             _context = context;
-            AllFootballPlayers = _context.FootballPlayer.ToList();
+            AllFootballPlayers = _context.FootballPlayers.ToList();
         }
 
         public IActionResult OnGet()
@@ -50,17 +50,17 @@ namespace TeamOrganiser.Pages.FootballGames
 
             foreach (FootballPlayer p in AllFootballPlayers)
             {
-                if(SelectedPlayers.Contains(p.ID))
+                if(SelectedPlayers.Contains(p.Id))
                 {
-                    FootballGame.Players.Add(p);
+                    FootballGame.FootballPlayers.Add(p);
                 }
             }
 
-            List<FootballTeam> Teams = FootballTeamSorter.CreateFairTeams(FootballGame.Players);
-            FootballGame.TeamA = Teams[0];
-            FootballGame.TeamB = Teams[1];
+            List<FootballTeam> Teams = FootballTeamSorter.CreateFairTeams(FootballGame.FootballPlayers.ToList());
+            FootballGame.FootballTeams.Add(Teams[0]);
+            FootballGame.FootballTeams.Add(Teams[1]);
 
-            _context.FootballGame.Add(FootballGame);
+            _context.FootballGames.Add(FootballGame);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -6,7 +6,7 @@ namespace TeamOrganiser.Models.Players
     {
         [Key]
         [Required]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "First Name")]
         [Required(ErrorMessage = "First name is required")]

@@ -25,7 +25,7 @@ namespace TeamOrganiser
 
         public async Task OnGetAsync()
         {
-            Player = _context.Player.AsEnumerable()
+            Player = _context.Players.AsEnumerable()
                 .Where(t => !t.GetType().IsSubclassOf(typeof(Player))).ToList();
         }
     }

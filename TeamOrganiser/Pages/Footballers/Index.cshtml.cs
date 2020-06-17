@@ -23,7 +23,7 @@ namespace TeamOrganiser
 
         public async Task OnGetAsync()
         {
-            FootballPlayer = await _context.FootballPlayer.ToListAsync();
+            FootballPlayer = await _context.FootballPlayers.ToListAsync();
         }
     }
 }

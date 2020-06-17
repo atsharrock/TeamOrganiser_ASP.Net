@@ -17,7 +17,7 @@ namespace TeamOrganiser
 
         public async Task<JsonResult> OnGetAsync(int? id)
         {
-            var UserAccount = await _context.UserAccount.FindAsync(id);
+            var UserAccount = await _context.UserAccounts.FindAsync(id);
 
             if (UserAccount == null)
             {
@@ -35,7 +35,7 @@ namespace TeamOrganiser
                 return Content("Error - User account is invalid.");
             }
 
-            UserAccount UserAccountToUpdate = await _context.UserAccount.FirstOrDefaultAsync(m => m.ID == userAccount.ID).ConfigureAwait(false);
+            UserAccount UserAccountToUpdate = await _context.UserAccounts.FirstOrDefaultAsync(m => m.ID == userAccount.ID).ConfigureAwait(false);
 
             if (null == UserAccountToUpdate)
             {

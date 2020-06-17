@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -7,11 +8,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using TeamOrganiser.Models.Football;
 using TeamOrganiser.Models.Players;
+using TeamOrganiser.Models.Teams;
 
 namespace TeamOrganiser.Models
 {
     public class FootballPlayer : Player, IFootballPlayer
     {
+        [Key]
+        public new int Id { get; set; }
+
         public int Defence { get; set; }
         public int CentreBack { get; set; }
         public int Sweeper { get; set; }
@@ -26,21 +31,8 @@ namespace TeamOrganiser.Models
         public int Forward { get; set; }
         public int CentreForward { get; set; }
         public int Winger { get; set; }
-        
 
-        public FootballPlayer(int id, string firstname, string lastname, string email, string contactnumber)
-        {
-            ID = id;
-            FirstName = firstname;
-            LastName = lastname;
-            Email = email;
-            ContactNumber = contactnumber;
-        }
-
-        public FootballPlayer()
-        {
-
-        }
+        public virtual ICollection<Team> Teams { get; set; }
 
         public int SetRating()
         {

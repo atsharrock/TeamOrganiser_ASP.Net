@@ -38,12 +38,12 @@ namespace TeamOrganiser
             if (Player != null)
             {
                 Player NewPlayer = SportsFactory.CreatePlayer(Player);
-                _context.Player.Add(NewPlayer);
+                _context.Players.Add(NewPlayer);
 
                 if (Player.Football)
                 {
                     FootballPlayer NewFootballPlayer = SportsFactory.CreateFootballPlayer(NewPlayer);
-                    _context.FootballPlayer.Add(NewFootballPlayer);
+                    _context.FootballPlayers.Add(NewFootballPlayer);
                 }
 
                 await _context.SaveChangesAsync().ConfigureAwait(true);

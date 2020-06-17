@@ -24,7 +24,7 @@ namespace TeamOrganiser
 
         public async Task<JsonResult> OnGetAsync(int? id)
         {
-            Player Player = await _context.Player.FindAsync(id);
+            Player Player = await _context.Players.FindAsync(id);
 
             if (Player == null)
             {
@@ -41,9 +41,9 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            Player Player = await _context.Player
+            Player Player = await _context.Players
                             .AsNoTracking()
-                            .FirstOrDefaultAsync(m => m.ID == id).ConfigureAwait(false);
+                            .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
             if (Player == null)
             {
@@ -52,7 +52,7 @@ namespace TeamOrganiser
 
             try
             {
-                _context.Player.Remove(Player);
+                _context.Players.Remove(Player);
                 await _context.SaveChangesAsync().ConfigureAwait(false);
                 return Content(Player.FirstName + " successfully deleted!");
             }

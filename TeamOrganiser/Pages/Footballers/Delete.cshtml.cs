@@ -29,7 +29,7 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            FootballPlayer = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == id);
+            FootballPlayer = await _context.FootballPlayers.FirstOrDefaultAsync(m => m.Id == id);
 
             if (FootballPlayer == null)
             {
@@ -45,11 +45,11 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            FootballPlayer = await _context.FootballPlayer.FindAsync(id);
+            FootballPlayer = await _context.FootballPlayers.FindAsync(id);
 
             if (FootballPlayer != null)
             {
-                _context.FootballPlayer.Remove(FootballPlayer);
+                _context.FootballPlayers.Remove(FootballPlayer);
                 await _context.SaveChangesAsync();
             }
 

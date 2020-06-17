@@ -15,7 +15,7 @@ namespace TeamOrganiser.Services
         {
             FootballTeam team = new FootballTeam()
             {
-                PlayerList = players,
+                FootballPlayers = players,
                 TeamRating = GetTeamRating(players),
                 TeamChemistryRating = TeamChemistry.SetFootballChemistry(players)
             };

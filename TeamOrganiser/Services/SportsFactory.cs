@@ -32,7 +32,7 @@ namespace TeamOrganiser
 
             FootballPlayer NewFootballPlayer = new FootballPlayer()
             {
-                ID = player.ID,
+                Id = player.Id,
                 FirstName = player.FirstName,
                 LastName = player.LastName,
                 Email = player.Email,

@@ -40,7 +40,7 @@ namespace TeamOrganiser
                 newUserAccount.Password = EncryptPassword(newUserAccount, UserAccount.Password);
                 newUserAccount.AccountType = UserAccount.AccountType;
 
-                _context.UserAccount.Add(newUserAccount);
+                _context.UserAccounts.Add(newUserAccount);
                 await _context.SaveChangesAsync().ConfigureAwait(true);
 
                 return Content(newUserAccount.Name + " has been created!");

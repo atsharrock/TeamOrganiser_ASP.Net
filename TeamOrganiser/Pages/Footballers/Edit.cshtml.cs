@@ -27,7 +27,7 @@ namespace TeamOrganiser
                 // insert error handling
             }
 
-            var FootballPlayer = await _context.FootballPlayer.FindAsync(id);
+            var FootballPlayer = await _context.FootballPlayers.FindAsync(id);
 
             if (FootballPlayer == null)
             {
@@ -39,7 +39,7 @@ namespace TeamOrganiser
 
         public async Task<IActionResult> OnPostAsync(FootballPlayer FootballPlayer)
         {
-            FootballPlayer FootballPlayerToUpdate = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == FootballPlayer.ID).ConfigureAwait(false);
+            FootballPlayer FootballPlayerToUpdate = await _context.FootballPlayers.FirstOrDefaultAsync(m => m.Id == FootballPlayer.Id).ConfigureAwait(false);
 
             if (null == FootballPlayerToUpdate)
             {

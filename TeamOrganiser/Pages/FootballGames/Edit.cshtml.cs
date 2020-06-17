@@ -30,7 +30,7 @@ namespace TeamOrganiser.Pages.FootballGames
                 return NotFound();
             }
 
-            FootballGame = await _context.FootballGame.FirstOrDefaultAsync(m => m.Id == id);
+            FootballGame = await _context.FootballGames.FirstOrDefaultAsync(m => m.Id == id);
 
             if (FootballGame == null)
             {
@@ -71,7 +71,7 @@ namespace TeamOrganiser.Pages.FootballGames
 
         private bool FootballGameExists(int id)
         {
-            return _context.FootballGame.Any(e => e.Id == id);
+            return _context.FootballGames.Any(e => e.Id == id);
         }
     }
 }

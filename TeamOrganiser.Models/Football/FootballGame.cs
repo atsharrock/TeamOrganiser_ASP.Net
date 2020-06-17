@@ -10,18 +10,12 @@ namespace TeamOrganiser.Models.Football
         [Key]
         public int Id { get; set; }
 
-        public List<FootballPlayer> Players { get; set; } = new List<FootballPlayer>();
-        public FootballTeam TeamA { get; set; }
-        public FootballTeam TeamB { get; set; }
+        public virtual ICollection<FootballPlayer> FootballPlayers { get; set; }
+        public virtual ICollection<Team> FootballTeams { get; set; }
         public string Address { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Duration { get; set; }
         public Team Winner { get; set; }
-
-        public FootballGame()
-        {
-
-        }
     }
 }

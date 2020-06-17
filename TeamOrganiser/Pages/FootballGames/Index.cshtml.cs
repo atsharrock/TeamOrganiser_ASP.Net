@@ -28,8 +28,8 @@ namespace TeamOrganiser.Pages.FootballGames
 
         public async Task OnGetAsync()
         {
-            FootballGames = await _context.FootballGame.ToListAsync();
-            AllFootballPlayers = await _context.FootballPlayer.ToListAsync();
+            FootballGames = await _context.FootballGames.ToListAsync();
+            AllFootballPlayers = await _context.FootballPlayers.ToListAsync();
         }
     }
 }

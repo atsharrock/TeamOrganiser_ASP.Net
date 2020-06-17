@@ -23,12 +23,12 @@ namespace TeamOrganiser.Tests.Football
             FootballTeam TeamTwo = footballTeamService.CreateTeam(TeamTwoList);
 
             Assert.IsNotNull(TeamOne);
-            Assert.IsTrue(TeamOne.PlayerList.Count == 5);
+            Assert.IsTrue(TeamOne.FootballPlayers.Count == 5);
             Assert.IsTrue(TeamOne.TeamRating >= 0 && TeamOne.TeamRating <= 100);
             Assert.IsTrue(TeamOne.TeamChemistryRating >= 0 && TeamOne.TeamChemistryRating <= 100);
 
             Assert.IsNotNull(TeamTwo);
-            Assert.IsTrue(TeamTwo.PlayerList.Count == 5);
+            Assert.IsTrue(TeamTwo.FootballPlayers.Count == 5);
             Assert.IsTrue(TeamTwo.TeamRating >= 0 && TeamTwo.TeamRating <= 100);
             Assert.IsTrue(TeamTwo.TeamChemistryRating >= 0 && TeamTwo.TeamChemistryRating <= 100);
         }

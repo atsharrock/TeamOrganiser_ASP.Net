@@ -23,7 +23,7 @@ namespace TeamOrganiser
 
         public async Task OnGetAsync()
         {
-            UserAccount = await _context.UserAccount.ToListAsync().ConfigureAwait(false);
+            UserAccount = await _context.UserAccounts.ToListAsync().ConfigureAwait(false);
         }
 
     }

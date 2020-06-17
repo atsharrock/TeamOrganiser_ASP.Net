@@ -30,7 +30,7 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            UserAccount = await _context.UserAccount
+            UserAccount = await _context.UserAccounts
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id).ConfigureAwait(false);
 
@@ -54,7 +54,7 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            var UserAccount = await _context.UserAccount
+            var UserAccount = await _context.UserAccounts
                             .AsNoTracking()
                             .FirstOrDefaultAsync(m => m.ID == id).ConfigureAwait(false);
 
@@ -65,7 +65,7 @@ namespace TeamOrganiser
 
             try
             {
-                _context.UserAccount.Remove(UserAccount);
+                _context.UserAccounts.Remove(UserAccount);
                 await _context.SaveChangesAsync().ConfigureAwait(false);
                 return Content(UserAccount.Name + " successfully deleted!");
             }

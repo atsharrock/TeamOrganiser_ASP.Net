@@ -19,8 +19,8 @@ namespace TeamOrganiser.Tests
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
-            Assert.IsTrue(SortedTeams[0].PlayerList.Count == 5);
-            Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[0].FootballPlayers.Count == 5);
+            Assert.IsTrue(SortedTeams[1].FootballPlayers.Count == 5);
         }
 
         [TestMethod]
@@ -30,8 +30,8 @@ namespace TeamOrganiser.Tests
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
-            Assert.IsTrue(SortedTeams[0].PlayerList.Count == 5);
-            Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[0].FootballPlayers.Count == 5);
+            Assert.IsTrue(SortedTeams[1].FootballPlayers.Count == 5);
         }
 
         [TestMethod]
@@ -41,8 +41,8 @@ namespace TeamOrganiser.Tests
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
-            Assert.IsTrue(SortedTeams[0].PlayerList.Count == 5);
-            Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[0].FootballPlayers.Count == 5);
+            Assert.IsTrue(SortedTeams[1].FootballPlayers.Count == 5);
             Assert.IsTrue(SortedTeams[0].TeamRating >= 0 && SortedTeams[0].TeamRating <= 100);
         }
 
@@ -53,8 +53,8 @@ namespace TeamOrganiser.Tests
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
-            Assert.IsTrue(SortedTeams[0].PlayerList.Count == 5);
-            Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[0].FootballPlayers.Count == 5);
+            Assert.IsTrue(SortedTeams[1].FootballPlayers.Count == 5);
             Assert.IsTrue(SortedTeams[0].TeamRating >= 0 && SortedTeams[0].TeamRating <= 100);
         }
 
@@ -65,8 +65,8 @@ namespace TeamOrganiser.Tests
 
             Assert.IsNotNull(SortedTeams);
             Assert.IsTrue(SortedTeams.Count == 2);
-            Assert.IsTrue(SortedTeams[0].PlayerList.Count == 5);
-            Assert.IsTrue(SortedTeams[1].PlayerList.Count == 5);
+            Assert.IsTrue(SortedTeams[0].FootballPlayers.Count == 5);
+            Assert.IsTrue(SortedTeams[1].FootballPlayers.Count == 5);
             Assert.IsTrue(SortedTeams[0].TeamRating >= 0 && SortedTeams[0].TeamRating <= 100);
         }
 

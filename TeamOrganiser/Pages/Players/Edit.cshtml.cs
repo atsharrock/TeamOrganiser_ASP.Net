@@ -25,7 +25,7 @@ namespace TeamOrganiser
 
         public async Task<JsonResult> OnGetAsync(int? id)
         {
-            Player Player = await _context.Player.FindAsync(id);
+            Player Player = await _context.Players.FindAsync(id);
 
             if (Player == null)
             {
@@ -52,7 +52,7 @@ namespace TeamOrganiser
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerExists(Player.ID))
+                if (!PlayerExists(Player.Id))
                 {
                     return NotFound();
                 }
@@ -67,7 +67,7 @@ namespace TeamOrganiser
 
         private bool PlayerExists(int id)
         {
-            return _context.Player.Any(e => e.ID == id);
+            return _context.Players.Any(e => e.Id == id);
         }
     }
 }

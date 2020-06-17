@@ -36,7 +36,7 @@ namespace TeamOrganiser
                 return Page();
             }
 
-            _context.FootballPlayer.Add(FootballPlayer);
+            _context.FootballPlayers.Add(FootballPlayer);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

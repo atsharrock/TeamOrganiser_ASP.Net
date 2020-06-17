@@ -28,7 +28,7 @@ namespace TeamOrganiser
                 return NotFound();
             }
 
-            FootballPlayer = await _context.FootballPlayer.FirstOrDefaultAsync(m => m.ID == id);
+            FootballPlayer = await _context.FootballPlayers.FirstOrDefaultAsync(m => m.Id == id);
 
             if (FootballPlayer == null)
             {
