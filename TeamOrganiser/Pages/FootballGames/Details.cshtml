@@ -1,4 +1,5 @@
 ﻿@page
+@using Models
 @model TeamOrganiser.Pages.FootballGames.DetailsModel
 
 @{
@@ -36,6 +37,24 @@
             @Html.DisplayFor(model => model.FootballGame.Duration)
         </dd>
     </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Team A
+            </th>
+            <th>
+                Team B
+            </th>
+        </tr>
+        <tr>
+            <td>
+                
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.FootballGame.Id">Edit</a> |

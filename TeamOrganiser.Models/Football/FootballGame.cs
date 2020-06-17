@@ -11,12 +11,12 @@ namespace TeamOrganiser.Models.Football
         public int Id { get; set; }
 
         public List<FootballPlayer> Players { get; set; } = new List<FootballPlayer>();
-        public Team TeamA { get; set; }
-        public Team TeamB { get; set; }
+        public FootballTeam TeamA { get; set; }
+        public FootballTeam TeamB { get; set; }
         public string Address { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public TimeSpan Duration { get; set; }
+        public int Duration { get; set; }
         public Team Winner { get; set; }
 
         public FootballGame()
