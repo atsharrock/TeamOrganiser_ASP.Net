@@ -17,9 +17,9 @@ namespace TeamOrganiser.Tests
         {
 
             FootballPlayer FootyPlayer = GenerateFootballPlayers()[0];
-            int rating = FootyPlayer.SetRating();
-            Assert.IsNotNull(rating);
-            Assert.IsTrue(rating <= 100 && rating >= 0);
+            FootyPlayer.SetRating();
+            Assert.IsNotNull(FootyPlayer.Rating);
+            Assert.IsTrue(FootyPlayer.Rating <= 100 && FootyPlayer.Rating >= 0);
 
             var FootyPlayer2 = new FootballPlayer()
             {
@@ -31,7 +31,8 @@ namespace TeamOrganiser.Tests
             };
 
             int expectedRating = (FootyPlayer2.Defence + FootyPlayer2.Midfield + FootyPlayer2.Forward) / 3;
-            int actualRating = FootyPlayer2.SetRating();
+            FootyPlayer2.SetRating();
+            int actualRating = FootyPlayer2.Rating;
             Assert.AreEqual(expectedRating, actualRating);
 
         }

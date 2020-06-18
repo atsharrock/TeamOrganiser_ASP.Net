@@ -43,12 +43,20 @@ namespace TeamOrganiser
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<ApplicationDbContext>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            //var scopedFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            //using (var scope = scopedFactory.CreateScope())
+            //{
+            //    scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Seed();
+            //}
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -12,10 +13,16 @@ using TeamOrganiser.Models.Teams;
 
 namespace TeamOrganiser.Models
 {
-    public class FootballPlayer : Player, IFootballPlayer
+    public class FootballPlayer : IFootballPlayer
     {
         [Key]
-        public new int Id { get; set; }
+        public int Id { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string ContactNumber { get; set; }
+        public int Rating { get; set; }
 
         public int Defence { get; set; }
         public int CentreBack { get; set; }
@@ -32,18 +39,39 @@ namespace TeamOrganiser.Models
         public int CentreForward { get; set; }
         public int Winger { get; set; }
 
-        public virtual ICollection<Team> Teams { get; set; }
-
-        public int SetRating()
+        public void SetRating()
         {
+            List<int> DefenceRatings = new List<int>() { CentreBack, Sweeper, FullBack, WingBack };
+            List<int> MidfieldRatings = new List<int>() { CentreMidfield, DefensiveMidfield, AttackingMidfield, WideMidfield };
+            List<int> AttackRatings = new List<int>() { Forward, CentreForward, Winger };
+
+            this.Defence = GetAverageOfPositionRating(DefenceRatings);
+            this.Midfield = GetAverageOfPositionRating(MidfieldRatings);
+            this.Attack = GetAverageOfPositionRating(AttackRatings);
+
+            this.Rating = (Defence + Midfield + Attack) / 3;
+        }
+
+        private int GetAverageOfPositionRating(List<int> PositionRatings)
+        {
+            int count = 0;
             int rating = 0;
-            var TopPositions = GetTopPositions();
-            foreach (var position in TopPositions)
+
+            foreach (int position in PositionRatings)
             {
-                rating += GetPositionRating(position);
+                if (position != 0)
+                {
+                    count++;
+                    rating += position;
+                }
             }
 
-            return rating/3;
+            if (count == 0)
+            {
+                return 0;
+            }
+
+            return rating / count;
         }
 
         public int GetPositionRating(string position)
@@ -55,17 +83,14 @@ namespace TeamOrganiser.Models
         {
             Dictionary<string, int> PositionRatings = new Dictionary<string, int>()
             {
-                { "Defence", Defence },
                 { "CentreBack", CentreBack },
                 { "Sweeper", Sweeper },
                 { "FullBack", FullBack },
                 { "WingBack", WingBack },
-                { "Midfield", Midfield },
                 { "CentreMidfield", CentreMidfield },
                 { "DefensiveMidfield", DefensiveMidfield },
                 { "AttackingMidfield", AttackingMidfield },
                 { "WideMidfield", WideMidfield },
-                { "Attack", Attack },
                 { "Forward", Forward },
                 { "CentreForward", CentreForward },
                 { "Winger", Winger }

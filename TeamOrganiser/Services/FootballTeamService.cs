@@ -26,7 +26,7 @@ namespace TeamOrganiser.Services
         private int GetTeamRating(List<FootballPlayer> playerList)
         {
             int Rating = 0;
-            foreach (Player P in playerList)
+            foreach (FootballPlayer P in playerList)
             {
                 Rating += P.Rating;
             }

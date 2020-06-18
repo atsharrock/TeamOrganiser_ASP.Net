@@ -57,20 +57,7 @@ namespace TeamOrganiser
             FootballPlayerToUpdate.Forward = FootballPlayer.Forward;
             FootballPlayerToUpdate.CentreForward = FootballPlayer.CentreForward;
             FootballPlayerToUpdate.Winger = FootballPlayer.Winger;
-
-            List<int> DefenceRatings = new List<int>() { FootballPlayerToUpdate.CentreBack, FootballPlayerToUpdate.Sweeper,
-                                                            FootballPlayerToUpdate.FullBack, FootballPlayerToUpdate.WingBack };
-
-            List<int> MidfieldRatings = new List<int>() { FootballPlayerToUpdate.CentreMidfield, FootballPlayerToUpdate.DefensiveMidfield,
-                                                           FootballPlayerToUpdate.AttackingMidfield, FootballPlayerToUpdate.WideMidfield };
-
-            List<int> AttackRatings = new List<int>() { FootballPlayerToUpdate.Forward, FootballPlayerToUpdate.CentreForward, FootballPlayerToUpdate.Winger };
-
-            FootballPlayerToUpdate.Defence = GetPositionRating(DefenceRatings);
-            FootballPlayerToUpdate.Midfield = GetPositionRating(MidfieldRatings);
-            FootballPlayerToUpdate.Attack = GetPositionRating(AttackRatings);
-
-            FootballPlayerToUpdate.Rating = GetOverallRating(FootballPlayerToUpdate.Defence, FootballPlayerToUpdate.Midfield, FootballPlayerToUpdate.Attack);
+            FootballPlayerToUpdate.SetRating();
 
             int result = await _context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -82,33 +69,5 @@ namespace TeamOrganiser
             return Content("Error - please contact your system administrator");
 
         }
-
-        private int GetOverallRating(int Defence, int Midfield, int Attack) 
-        {
-            return (Defence + Midfield + Attack) / 3;
-        }
-
-        private int GetPositionRating(List<int> PositionRatings)
-        {
-            int count = 0;
-            int rating = 0;
-
-            foreach (int position in PositionRatings)
-            {
-                if (position != 0)
-                {
-                    count++;
-                    rating += position;
-                }
-            }
-
-            if (count == 0)
-            {
-                return 0;
-            }
-
-            return rating / count;
-        }
-
     }
 }

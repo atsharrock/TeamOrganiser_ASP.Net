@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200617234210_footballasownentity")]
+    partial class footballasownentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,6 +264,9 @@ namespace TeamOrganiser.Data.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FootballTeamId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -270,41 +275,11 @@ namespace TeamOrganiser.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FootballTeamId");
+
                     b.HasIndex("WinnerId");
 
                     b.ToTable("FootballGames");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Football.FootballTeam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("FootballGameId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesLost")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesPlayed")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GamesWon")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamChemistryRating")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamRating")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FootballGameId");
-
-                    b.ToTable("FootballTeams");
                 });
 
             modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
@@ -421,6 +396,56 @@ namespace TeamOrganiser.Data.Migrations
                     b.ToTable("Players");
                 });
 
+            modelBuilder.Entity("TeamOrganiser.Models.Teams.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FootballGameId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FootballPlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GamesLost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GamesPlayed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GamesWon")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamChemistryRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamRating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FootballGameId");
+
+                    b.HasIndex("FootballPlayerId");
+
+                    b.ToTable("Team");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Team");
+                });
+
+            modelBuilder.Entity("TeamOrganiser.Models.Football.FootballTeam", b =>
+                {
+                    b.HasBaseType("TeamOrganiser.Models.Teams.Team");
+
+                    b.HasDiscriminator().HasValue("FootballTeam");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -474,16 +499,13 @@ namespace TeamOrganiser.Data.Migrations
 
             modelBuilder.Entity("TeamOrganiser.Models.Football.FootballGame", b =>
                 {
-                    b.HasOne("TeamOrganiser.Models.Football.FootballTeam", "Winner")
+                    b.HasOne("TeamOrganiser.Models.Football.FootballTeam", null)
+                        .WithMany("FootballGames")
+                        .HasForeignKey("FootballTeamId");
+
+                    b.HasOne("TeamOrganiser.Models.Teams.Team", "Winner")
                         .WithMany()
                         .HasForeignKey("WinnerId");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Football.FootballTeam", b =>
-                {
-                    b.HasOne("TeamOrganiser.Models.Football.FootballGame", null)
-                        .WithMany("FootballTeams")
-                        .HasForeignKey("FootballGameId");
                 });
 
             modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
@@ -495,6 +517,17 @@ namespace TeamOrganiser.Data.Migrations
                     b.HasOne("TeamOrganiser.Models.Football.FootballTeam", null)
                         .WithMany("FootballPlayers")
                         .HasForeignKey("FootballTeamId");
+                });
+
+            modelBuilder.Entity("TeamOrganiser.Models.Teams.Team", b =>
+                {
+                    b.HasOne("TeamOrganiser.Models.Football.FootballGame", null)
+                        .WithMany("FootballTeams")
+                        .HasForeignKey("FootballGameId");
+
+                    b.HasOne("TeamOrganiser.Models.FootballPlayer", null)
+                        .WithMany("Teams")
+                        .HasForeignKey("FootballPlayerId");
                 });
 #pragma warning restore 612, 618
         }

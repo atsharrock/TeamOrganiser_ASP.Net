@@ -37,22 +37,66 @@
             @Html.DisplayFor(model => model.FootballGame.Duration)
         </dd>
     </dl>
+
+    <h3>Team One</h3>
     <table class="table">
         <tr>
-            <th>
-                Team A
-            </th>
-            <th>
-                Team B
-            </th>
+            <th>Players</th>
+            <th>Rating</th>
+            <th>Chemistry</th>
         </tr>
         <tr>
             <td>
-                
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Rating</th>
+                    </tr>
+                    
+                    @foreach (FootballPlayer p in Model.TeamA.FootballPlayers)
+                    {
+                        <tr>
+                            <td>@p.FirstName @p.LastName</td>
+                            <td>@p.Rating</td>
+                        </tr>
+                    }
+                    
+                </table>
             </td>
-            <td>
+            <td>@Model.TeamA.TeamRating</td>
+            <td>@Model.TeamA.TeamChemistryRating</td>
+        </tr>
+    </table>
 
+    <h1>Versus</h1>
+
+    <h3>Team Two</h3>
+    <table class="table">
+        <tr>
+            <th>Players</th>
+            <th>Rating</th>
+            <th>Chemistry</th>
+        </tr>
+        <tr>
+            <td>
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Rating</th>
+                    </tr>
+                    
+                    @foreach (FootballPlayer p in Model.TeamB.FootballPlayers)
+                    {
+                        <tr>
+                            <td>@p.FirstName @p.LastName</td>
+                            <td>@p.Rating</td>
+                        </tr>
+                    }
+                    
+                </table>
             </td>
+            <td>@Model.TeamB.TeamRating</td>
+            <td>@Model.TeamB.TeamChemistryRating</td>
         </tr>
     </table>
 </div>
