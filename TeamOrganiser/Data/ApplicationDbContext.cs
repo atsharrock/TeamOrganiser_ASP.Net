@@ -8,6 +8,7 @@ using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
 using TeamOrganiser.Models.Football;
 using Microsoft.EntityFrameworkCore.Internal;
+using TeamOrganiser.Data.Entities.Football;
 
 namespace TeamOrganiser.Data
 {
@@ -23,8 +24,10 @@ namespace TeamOrganiser.Data
         public DbSet<Player> Players { get; set; }
         public DbSet<FootballGame> FootballGames { get; set; }
         public DbSet<FootballTeam> FootballTeams { get; set; }
+        public DbSet<FootballPlayerFootballGames> FootballPlayerFootballGames { get; set; }
+        public DbSet<FootballPlayerFootballTeams> FootballPlayerFootballTeams { get; set; }
 
-        public void Seed()
+        public async void Seed()
         {
             if (!Players.Any())
             {
@@ -89,96 +92,122 @@ namespace TeamOrganiser.Data
                     Football = true,
                 };
 
-                Players.Add(Andrew); Players.Add(Stuart); Players.Add(Jim); Players.Add(Gill); Players.Add(Stevie);
-                Players.Add(Carly); Players.Add(Timme); Players.Add(Pete); Players.Add(Paul); Players.Add(Leeroy);
+                await Players.AddAsync(Andrew);
+                await Players.AddAsync(Stuart);
+                await Players.AddAsync(Jim);
+                await Players.AddAsync(Gill);
+                await Players.AddAsync(Stevie);
+                await Players.AddAsync(Carly);
+                await Players.AddAsync(Timme);
+                await Players.AddAsync(Pete);
+                await Players.AddAsync(Paul);
+                await Players.AddAsync(Leeroy);
+
+                SaveChanges();
+
             }
 
-            Random rnd = new Random();
-
-            List<FootballPlayer> output = new List<FootballPlayer>()
+            if (!FootballPlayers.Any())
             {
-                new FootballPlayer()
+                Random rnd = new Random();
+
+                var Andrew = new FootballPlayer()
                 {
                     FirstName = "Andrew",
                     LastName = "Sharrock",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Stuart = new FootballPlayer()
                 {
                     FirstName = "Stuart",
                     LastName = "Sharrock",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Jim = new FootballPlayer()
                 {
                     FirstName = "Jim",
                     LastName = "Sharrock",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Gill = new FootballPlayer()
                 {
                     FirstName = "Gill",
                     LastName = "Sharrock",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Stevie = new FootballPlayer()
                 {
                     FirstName = "Stevie",
                     LastName = "Sharrock",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Carly = new FootballPlayer()
                 {
                     FirstName = "Carly",
                     LastName = "Richardson",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Timme = new FootballPlayer()
                 {
                     FirstName = "Timme",
                     LastName = "Martin",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                }; ;
+                var Pete = new FootballPlayer()
                 {
                     FirstName = "Pete",
                     LastName = "Skipp",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Paul = new FootballPlayer()
                 {
                     FirstName = "Paul",
                     LastName = "French",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-                new FootballPlayer()
+                };
+                var Leeroy = new FootballPlayer()
                 {
                     FirstName = "Leeroy",
                     LastName = "Jenkins",
-                    Defence = rnd.Next(1, 101),
-                    Midfield = rnd.Next(1, 101),
+                    CentreBack = rnd.Next(1, 101),
+                    CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
-                },
-            };
+                };
 
+                Andrew.SetRating(); Stuart.SetRating(); Jim.SetRating(); Gill.SetRating(); Stevie.SetRating();
+                Carly.SetRating(); Timme.SetRating(); Pete.SetRating(); Paul.SetRating(); Leeroy.SetRating();
+
+                await FootballPlayers.AddAsync(Andrew);
+                await FootballPlayers.AddAsync(Stuart);
+                await FootballPlayers.AddAsync(Jim);
+                await FootballPlayers.AddAsync(Gill);
+                await FootballPlayers.AddAsync(Stevie);
+                await FootballPlayers.AddAsync(Carly);
+                await FootballPlayers.AddAsync(Timme);
+                await FootballPlayers.AddAsync(Pete);
+                await FootballPlayers.AddAsync(Paul);
+                await FootballPlayers.AddAsync(Leeroy);
+
+                SaveChanges();
+            }
         }
 
     }

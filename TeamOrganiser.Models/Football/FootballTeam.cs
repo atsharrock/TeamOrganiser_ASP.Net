@@ -7,7 +7,7 @@ using TeamOrganiser.Models.Teams;
 
 namespace TeamOrganiser.Models.Football
 {
-    public class FootballTeam : ITeam, IEnumerable<FootballTeam>
+    public class FootballTeam : ITeam
     {
         [Key]
         public int Id { get; set; }
@@ -18,16 +18,5 @@ namespace TeamOrganiser.Models.Football
         public int GamesWon { get; set; }
 
         public virtual ICollection<FootballPlayer> FootballPlayers { get; set; }
-
-        public IEnumerator<FootballTeam> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return FootballPlayers.GetEnumerator();
-
-        }
     }
 }

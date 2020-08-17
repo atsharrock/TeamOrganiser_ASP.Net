@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using TeamOrganiser.Data;
 using TeamOrganiser.Models;
 using TeamOrganiser.Models.Football;
@@ -36,10 +35,6 @@ namespace TeamOrganiser.Pages.FootballGames
 
         public List<FootballPlayer> AllFootballPlayers { get; set; }
 
-        [Inject]
-        FootballTeamService FootballTeamService { get; set; }
-
-        
 
         public async Task<IActionResult> OnPostAsync()
         {

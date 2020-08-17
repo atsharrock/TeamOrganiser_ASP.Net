@@ -6,12 +6,17 @@ using System.Transactions;
 using TeamOrganiser.Models;
 using TeamOrganiser.Models.Players;
 using TeamOrganiser.Models.Football;
+using TeamOrganiser.Data;
+using Microsoft.AspNetCore.Components;
 
 namespace TeamOrganiser.Services
 {
     public class FootballTeamService
     {
-        public FootballTeam CreateTeam(List<FootballPlayer> players)
+        [Inject]
+        ApplicationDbContext _context { get; set; }
+
+        public async Task<FootballTeam> CreateTeam(List<FootballPlayer> players)
         {
             FootballTeam team = new FootballTeam()
             {
@@ -19,6 +24,9 @@ namespace TeamOrganiser.Services
                 TeamRating = GetTeamRating(players),
                 TeamChemistryRating = TeamChemistry.SetFootballChemistry(players)
             };
+
+            _context.FootballTeams.Add(team);
+            await _context.SaveChangesAsync();
 
             return team;
         }

@@ -19,6 +19,7 @@ namespace TeamOrganiser.Models.Football
         public DateTime EndTime { get; set; }
         public int Duration { get; set; }
         public FootballTeam Winner { get; set; }
+        public string Status { get; set; } = "Active";
 
         public FootballGame()
         {

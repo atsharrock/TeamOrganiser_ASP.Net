@@ -108,8 +108,8 @@ namespace TeamOrganiser.Services
             }
 
             FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
 
             return new List<FootballTeam>() { teamA, teamB };
         }
@@ -161,8 +161,8 @@ namespace TeamOrganiser.Services
             }
 
             FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
 
             return new List<FootballTeam>() { teamA, teamB };
         }
@@ -194,8 +194,8 @@ namespace TeamOrganiser.Services
             }
 
             FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
 
             return new List<FootballTeam>() { teamA, teamB };
         }
@@ -263,8 +263,8 @@ namespace TeamOrganiser.Services
             }
 
             FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA);
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB);
+            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
+            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
 
             return new List<FootballTeam>() { teamA, teamB };
 

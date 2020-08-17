@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Routing;
 using TeamOrganiser.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TeamOrganiser
 {
@@ -36,13 +37,52 @@ namespace TeamOrganiser
                 options.LowercaseQueryStrings = true;
                 options.AppendTrailingSlash = true;
             });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
             services.AddTransient<ApplicationDbContext>();
 
         }
@@ -51,11 +91,11 @@ namespace TeamOrganiser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            //var scopedFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            //using (var scope = scopedFactory.CreateScope())
-            //{
-            //    scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Seed();
-            //}
+            var scopedFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopedFactory.CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Seed();
+            }
 
             if (env.IsDevelopment())
             {
@@ -81,8 +121,6 @@ namespace TeamOrganiser
             {
                 endpoints.MapRazorPages();
             });
-
-            
         }
     }
 }

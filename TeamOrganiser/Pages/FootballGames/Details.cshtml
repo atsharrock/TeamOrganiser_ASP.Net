@@ -38,66 +38,53 @@
         </dd>
     </dl>
 
-    <h3>Team One</h3>
+    <h3 style="text-align:center;">Team One</h3>
+    <h5 style="text-align:center;">Rating: @Model.TeamA.TeamRating</h5>
+    <h5 style="text-align:center;">Chemistry: @Model.TeamA.TeamChemistryRating</h5>
     <table class="table">
         <tr>
-            <th>Players</th>
+            <th>Name</th>
             <th>Rating</th>
-            <th>Chemistry</th>
+            <th>Defence</th>
+            <th>Midfield</th>
+            <th>Attack</th>
         </tr>
-        <tr>
-            <td>
-                <table class="table">
-                    <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                    </tr>
-                    
-                    @foreach (FootballPlayer p in Model.TeamA.FootballPlayers)
-                    {
-                        <tr>
-                            <td>@p.FirstName @p.LastName</td>
-                            <td>@p.Rating</td>
-                        </tr>
-                    }
-                    
-                </table>
-            </td>
-            <td>@Model.TeamA.TeamRating</td>
-            <td>@Model.TeamA.TeamChemistryRating</td>
-        </tr>
+        @foreach (FootballPlayer p in Model.TeamA.FootballPlayers)
+        {
+            <tr>
+                <td>@p.FirstName @p.LastName</td>
+                <td>@p.Rating</td>
+                <td>@p.Defence</td>
+                <td>@p.Midfield</td>
+                <td>@p.Attack</td>
+            </tr>
+        }
     </table>
-
-    <h1>Versus</h1>
-
-    <h3>Team Two</h3>
+    <hr />
+    <h1 style="text-align:center;">Versus</h1>
+    <hr />
+    <h3 style="text-align:center;">Team Two</h3>
+    <h5 style="text-align:center;">Rating: @Model.TeamB.TeamRating</h5>
+    <h5 style="text-align:center;">Chemistry: @Model.TeamB.TeamChemistryRating</h5>
     <table class="table">
         <tr>
-            <th>Players</th>
+            <th>Name</th>
             <th>Rating</th>
-            <th>Chemistry</th>
+            <th>Defence</th>
+            <th>Midfield</th>
+            <th>Attack</th>
+
         </tr>
-        <tr>
-            <td>
-                <table class="table">
-                    <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                    </tr>
-                    
-                    @foreach (FootballPlayer p in Model.TeamB.FootballPlayers)
-                    {
-                        <tr>
-                            <td>@p.FirstName @p.LastName</td>
-                            <td>@p.Rating</td>
-                        </tr>
-                    }
-                    
-                </table>
-            </td>
-            <td>@Model.TeamB.TeamRating</td>
-            <td>@Model.TeamB.TeamChemistryRating</td>
-        </tr>
+        @foreach (FootballPlayer p in Model.TeamB.FootballPlayers)
+        {
+            <tr>
+                <td>@p.FirstName @p.LastName</td>
+                <td>@p.Rating</td>
+                <td>@p.Defence</td>
+                <td>@p.Midfield</td>
+                <td>@p.Attack</td>
+            </tr>
+        }
     </table>
 </div>
 <div>
