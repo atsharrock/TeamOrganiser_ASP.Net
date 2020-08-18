@@ -39,19 +39,16 @@
                 <span asp-validation-for="FootballGame.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FootballGame.StartTime" class="control-label"></label>
-                <input asp-for="FootballGame.StartTime" class="form-control" />
-                <span asp-validation-for="FootballGame.StartTime" class="text-danger"></span>
+                <label asp-for="DateTime" class="control-label"></label>
+                <input asp-for="DateTime" class="form-control" type="date" />
             </div>
             <div class="form-group">
-                <label asp-for="FootballGame.EndTime" class="control-label"></label>
-                <input asp-for="FootballGame.EndTime" class="form-control" />
-                <span asp-validation-for="FootballGame.EndTime" class="text-danger"></span>
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" type="time" />
             </div>
             <div class="form-group">
-                <label asp-for="FootballGame.Duration" class="control-label"></label>
-                <input asp-for="FootballGame.Duration" class="form-control" type="number" />
-                <span asp-validation-for="FootballGame.Duration" class="text-danger"></span>
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" type="time" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -24,24 +24,35 @@ namespace TeamOrganiser.Pages.FootballGames
 
         public IActionResult OnGet()
         {
+            DateTime = DateTime.Now;
             return Page();
         }
 
-        [BindProperty]
-        public FootballGame FootballGame { get; set; }
+        [BindProperty] public FootballGame FootballGame { get; set; }
 
-        [BindProperty]
-        public List<int> SelectedPlayers { get; set; }
+        [BindProperty] public DateTime DateTime { get; set; }
+
+        [BindProperty] public TimeSpan StartTime { get; set; }
+
+        [BindProperty] public TimeSpan EndTime { get; set; }
+
+        [BindProperty] public List<int> SelectedPlayers { get; set; }
 
         public List<FootballPlayer> AllFootballPlayers { get; set; }
 
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || SelectedPlayers.Count() == 0 || StartTime == EndTime)
             {
                 return Page();
             }
+
+            FootballGame.StartTime = DateTime + StartTime;
+            FootballGame.EndTime = DateTime + EndTime;
+
+            TimeSpan duration = EndTime - StartTime;
+            FootballGame.Duration = duration.Hours;
 
             foreach (FootballPlayer p in AllFootballPlayers)
             {
