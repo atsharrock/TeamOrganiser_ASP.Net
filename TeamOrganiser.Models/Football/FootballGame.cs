@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TeamOrganiser.Models.Teams;
 
 namespace TeamOrganiser.Models.Football
 {
@@ -19,7 +19,9 @@ namespace TeamOrganiser.Models.Football
         public DateTime EndTime { get; set; }
         public int Duration { get; set; }
         public FootballTeam Winner { get; set; }
-        public string Status { get; set; } = "Active";
+        public bool Status { get; set; } = true;
+
+        public Guid IdentityUserId { get; set; }
 
         public FootballGame()
         {

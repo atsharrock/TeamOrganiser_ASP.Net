@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200617103636_footballgame_duration_toInt.cs" />
     <Compile Remove="Data\Migrations\20200617103636_footballgame_duration_toInt.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200819221904_Link_game_user.cs" />
+    <Compile Remove="Data\Migrations\20200819221904_Link_game_user.Designer.cs" />
   </ItemGroup>
 
 

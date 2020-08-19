@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TeamOrganiser.Data;
@@ -19,18 +19,21 @@ namespace TeamOrganiser.Pages.FootballGames
         private FootballTeamService _footballTeamService { get; set; }
         private FootballPlayerFootballGamesService _playerGamesService { get; set; }
         private FootballPlayerFootballTeamsService _playerTeamsService { get; set; }
+        private UserManager<IdentityUser> _userManager { get; set; }
 
         public CreateModel(TeamOrganiser.Data.ApplicationDbContext context, 
             FootballTeamSorter footballTeamSorter,
             FootballTeamService footballTeamService,
             FootballPlayerFootballGamesService footballPlayerFootballGamesService,
-            FootballPlayerFootballTeamsService footballPlayerFootballTeamsService)
+            FootballPlayerFootballTeamsService footballPlayerFootballTeamsService,
+            UserManager<IdentityUser> userManager)
         {
             _context = context;
             _footballTeamSorter = footballTeamSorter;
             _footballTeamService = footballTeamService;
             _playerGamesService = footballPlayerFootballGamesService;
             _playerTeamsService = footballPlayerFootballTeamsService;
+            _userManager = userManager;
             AllFootballPlayers = _context.FootballPlayers.ToList();
         }
 
@@ -74,6 +77,8 @@ namespace TeamOrganiser.Pages.FootballGames
                 }
             }
 
+            IdentityUser User = await _userManager.GetUserAsync(HttpContext.User);
+            FootballGame.IdentityUserId = Guid.Parse(User.Id);
 
             List<FootballTeam> Teams = _footballTeamSorter.CreateFairTeams(FootballGame.FootballPlayers.ToList());
             FootballTeam TeamA = await _footballTeamService.SaveFootballTeam(Teams[0]);
