@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200819001909_update1")]
+    partial class update1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,7 +245,7 @@ namespace TeamOrganiser.Data.Migrations
 
             modelBuilder.Entity("TeamOrganiser.Data.Entities.Football.FootballPlayerFootballTeams", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("If")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -254,7 +256,7 @@ namespace TeamOrganiser.Data.Migrations
                     b.Property<int>("FootballTeamId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("If");
 
                     b.HasIndex("FootballPlayerId");
 

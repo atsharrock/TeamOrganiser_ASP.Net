@@ -11,8 +11,7 @@ namespace TeamOrganiser.Data.Entities.Football
 {
     public class FootballPlayerFootballTeams
     {
-        [Key]
-        public int If { get; set; }
+        [Key] public int Id { get; set; }
 
         [ForeignKey("FootballPlayer")]
         public int FootballPlayerId { get; set; }

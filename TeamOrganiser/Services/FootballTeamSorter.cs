@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,20 @@ namespace TeamOrganiser.Services
     /// of fair teams. Teams can be sorted randomly,
     /// based on their ratings or form.
     ///</summary>
-    public static class FootballTeamSorter
+    public class FootballTeamSorter
     {
+        private FootballTeamService _footballTeamService;
+
+        public FootballTeamSorter(FootballTeamService footballTeamService)
+        {
+            _footballTeamService = footballTeamService;
+        }
 
         ///<summary>
         /// Sorts two teams as fairly as possible based on multiple methods.
         /// All methods are compared to find the lowest score difference between each team.
         ///</summary>
-        public static List<FootballTeam> CreateFairTeams(List<FootballPlayer> listOfPlayers)
+        public List<FootballTeam> CreateFairTeams(List<FootballPlayer> listOfPlayers)
         {
 
             List<FootballTeam> alternating = CreateTeamsByAlternating(listOfPlayers);
@@ -89,7 +96,7 @@ namespace TeamOrganiser.Services
         ///<summary>
         /// Teams are assigned a player one after the other in order of rating.
         ///</summary>
-        public static List<FootballTeam> CreateTeamsByAlternating(List<FootballPlayer> players)
+        public List<FootballTeam> CreateTeamsByAlternating(List<FootballPlayer> players)
         {
             players = players.OrderBy(o => o.Rating).ToList();
             List<FootballPlayer> listTeamA = new List<FootballPlayer>();
@@ -107,9 +114,8 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
+            FootballTeam teamA = _footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = _footballTeamService.CreateTeam(listTeamB);
 
             return new List<FootballTeam>() { teamA, teamB };
         }
@@ -118,7 +124,7 @@ namespace TeamOrganiser.Services
         /// Teams are sorted by giving one team the best player. The next team
         /// get the next two best players and so on until there are no players left.
         ///</summary>
-        public static List<FootballTeam> CreateTeamsByEveryTwo(List<FootballPlayer> players)
+        public List<FootballTeam> CreateTeamsByEveryTwo(List<FootballPlayer> players)
         {
             players = players.OrderBy(o => o.Rating).ToList();
             List<FootballPlayer> listTeamA = new List<FootballPlayer>();
@@ -160,9 +166,8 @@ namespace TeamOrganiser.Services
 
             }
 
-            FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
+            FootballTeam teamA = _footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = _footballTeamService.CreateTeam(listTeamB);
 
             return new List<FootballTeam>() { teamA, teamB };
         }
@@ -170,7 +175,7 @@ namespace TeamOrganiser.Services
         ///<summary>
         /// Teams are sorted by trying to make the team scores even after each player is assigned
         ///</summary>
-        public static List<FootballTeam> CreateTeamsByPointSystem(List<FootballPlayer> players)
+        public List<FootballTeam> CreateTeamsByPointSystem(List<FootballPlayer> players)
         {
             players = players.OrderBy(o => o.Rating).ToList();
             List<FootballPlayer> listTeamA = new List<FootballPlayer>();
@@ -193,9 +198,8 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
+            FootballTeam teamA = _footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = _footballTeamService.CreateTeam(listTeamB);
 
             return new List<FootballTeam>() { teamA, teamB };
         }
@@ -205,7 +209,7 @@ namespace TeamOrganiser.Services
         /// each team is then attempted to be given an equal amount of players
         /// in each skill bucket.
         ///</summary>
-        public static List<FootballTeam> CreateTeamsBySkillBuckets(List<FootballPlayer> players)
+        public List<FootballTeam> CreateTeamsBySkillBuckets(List<FootballPlayer> players)
         {
             players = players.OrderBy(o => o.Rating).ToList();
 
@@ -262,9 +266,8 @@ namespace TeamOrganiser.Services
                 }
             }
 
-            FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam teamA = footballTeamService.CreateTeam(listTeamA).Result;
-            FootballTeam teamB = footballTeamService.CreateTeam(listTeamB).Result;
+            FootballTeam teamA = _footballTeamService.CreateTeam(listTeamA);
+            FootballTeam teamB = _footballTeamService.CreateTeam(listTeamB);
 
             return new List<FootballTeam>() { teamA, teamB };
 

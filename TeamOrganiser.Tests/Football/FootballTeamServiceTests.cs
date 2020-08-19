@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,15 @@ namespace TeamOrganiser.Tests.Football
     [TestClass]
     public class FootballTeamServiceTests
     {
+        [Inject] FootballTeamService FootballTeamService { get; set; }
         [TestMethod]
         public void CreateFootballTeamTest()
         {
             List<FootballPlayer> TeamOneList = GenerateFootballPlayers().Take(5).ToList();
             List<FootballPlayer> TeamTwoList = Enumerable.Reverse(GenerateFootballPlayers()).Take(5).ToList();
 
-            FootballTeamService footballTeamService = new FootballTeamService();
-            FootballTeam TeamOne = footballTeamService.CreateTeam(TeamOneList);
-            FootballTeam TeamTwo = footballTeamService.CreateTeam(TeamTwoList);
+            FootballTeam TeamOne = FootballTeamService.CreateTeam(TeamOneList);
+            FootballTeam TeamTwo = FootballTeamService.CreateTeam(TeamTwoList);
 
             Assert.IsNotNull(TeamOne);
             Assert.IsTrue(TeamOne.FootballPlayers.Count == 5);

@@ -13,10 +13,14 @@ namespace TeamOrganiser.Services
 {
     public class FootballTeamService
     {
-        [Inject]
-        ApplicationDbContext _context { get; set; }
+        private ApplicationDbContext _context;
 
-        public async Task<FootballTeam> CreateTeam(List<FootballPlayer> players)
+        public FootballTeamService(ApplicationDbContext applicationDbContext)
+        {
+            _context = applicationDbContext;
+        }
+
+        public FootballTeam CreateTeam(List<FootballPlayer> players)
         {
             FootballTeam team = new FootballTeam()
             {
@@ -25,9 +29,13 @@ namespace TeamOrganiser.Services
                 TeamChemistryRating = TeamChemistry.SetFootballChemistry(players)
             };
 
+            return team;
+        }
+
+        public async Task<FootballTeam> SaveFootballTeam(FootballTeam team)
+        {
             _context.FootballTeams.Add(team);
             await _context.SaveChangesAsync();
-
             return team;
         }
 

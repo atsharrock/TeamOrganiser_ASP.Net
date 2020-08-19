@@ -83,7 +83,11 @@ namespace TeamOrganiser
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
-            services.AddTransient<ApplicationDbContext>();
+            services.AddScoped<ApplicationDbContext>()
+                .AddScoped<FootballTeamService>()
+                .AddScoped<FootballTeamSorter>()
+                .AddScoped<FootballPlayerFootballGamesService>()
+                .AddScoped<FootballPlayerFootballTeamsService>();
 
         }
 

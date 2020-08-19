@@ -14,11 +14,23 @@ namespace TeamOrganiser.Pages.FootballGames
 {
     public class CreateModel : PageModel
     {
-        private readonly TeamOrganiser.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+        private FootballTeamSorter _footballTeamSorter { get; set; }
+        private FootballTeamService _footballTeamService { get; set; }
+        private FootballPlayerFootballGamesService _playerGamesService { get; set; }
+        private FootballPlayerFootballTeamsService _playerTeamsService { get; set; }
 
-        public CreateModel(TeamOrganiser.Data.ApplicationDbContext context)
+        public CreateModel(TeamOrganiser.Data.ApplicationDbContext context, 
+            FootballTeamSorter footballTeamSorter,
+            FootballTeamService footballTeamService,
+            FootballPlayerFootballGamesService footballPlayerFootballGamesService,
+            FootballPlayerFootballTeamsService footballPlayerFootballTeamsService)
         {
             _context = context;
+            _footballTeamSorter = footballTeamSorter;
+            _footballTeamService = footballTeamService;
+            _playerGamesService = footballPlayerFootballGamesService;
+            _playerTeamsService = footballPlayerFootballTeamsService;
             AllFootballPlayers = _context.FootballPlayers.ToList();
         }
 
@@ -62,12 +74,19 @@ namespace TeamOrganiser.Pages.FootballGames
                 }
             }
 
-            List<FootballTeam> Teams = FootballTeamSorter.CreateFairTeams(FootballGame.FootballPlayers.ToList());
-            FootballGame.FootballTeams.Add(Teams[0]);
-            FootballGame.FootballTeams.Add(Teams[1]);
+
+            List<FootballTeam> Teams = _footballTeamSorter.CreateFairTeams(FootballGame.FootballPlayers.ToList());
+            FootballTeam TeamA = await _footballTeamService.SaveFootballTeam(Teams[0]);
+            FootballTeam TeamB = await _footballTeamService.SaveFootballTeam(Teams[1]);
+            FootballGame.FootballTeams.Add(TeamA);
+            FootballGame.FootballTeams.Add(TeamB);
 
             _context.FootballGames.Add(FootballGame);
             await _context.SaveChangesAsync();
+
+            await _playerGamesService.LinkPlayersToFootballGame(FootballGame.FootballPlayers.ToList(), FootballGame.Id);
+            await _playerTeamsService.LinkPlayersToFootballTeam(TeamA.FootballPlayers.ToList(), TeamA.Id);
+            await _playerTeamsService.LinkPlayersToFootballTeam(TeamB.FootballPlayers.ToList(), TeamB.Id);
 
             return RedirectToPage("./Index");
         }

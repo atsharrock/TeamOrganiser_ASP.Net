@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,8 @@ namespace TeamOrganiser.Tests
     [TestClass]
     public class FootballTeamSorterTests
     {
+        [Inject] private FootballTeamSorter FootballTeamSorter { get; set; }
+
         [TestMethod]
         public void CreateTeamsByAlternatingTest()
         {
