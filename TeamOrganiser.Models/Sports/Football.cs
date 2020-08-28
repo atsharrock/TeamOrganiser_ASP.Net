@@ -6,6 +6,6 @@ namespace TeamOrganiser.Models.Sports
 {
     public class Football : Sport
     {
-
+        public string Name { get; set; } = "Football";
     }
 }

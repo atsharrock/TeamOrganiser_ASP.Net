@@ -37,10 +37,7 @@ namespace TeamOrganiser.Data
             if (!Players.Any() && !FootballPlayers.Any() && !Sports.Any())
             {
 
-                Sport Football = new Football()
-                {
-                    Name = "Football"
-                };
+                Sport Football = new Football();
                 Sports.Add(Football);
 
                 var Andrew = new Player()
