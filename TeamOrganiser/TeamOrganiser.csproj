@@ -24,6 +24,8 @@
     <Compile Remove="Data\Migrations\20200828212215_link_playerToSports5.Designer.cs" />
     <Compile Remove="Data\Migrations\20200828212525_link_playerToSports5.cs" />
     <Compile Remove="Data\Migrations\20200828212525_link_playerToSports5.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828222102_link_playerToSports6.cs" />
+    <Compile Remove="Data\Migrations\20200828222102_link_playerToSports6.Designer.cs" />
   </ItemGroup>
 
 

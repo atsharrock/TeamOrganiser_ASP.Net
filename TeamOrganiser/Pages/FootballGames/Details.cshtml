@@ -52,7 +52,7 @@
         @foreach (FootballPlayer p in Model.TeamA.FootballPlayers)
         {
             <tr>
-                <td>@p.FirstName @p.LastName</td>
+                <td>@p.Player.FirstName @p.Player.LastName</td>
                 <td>@p.Rating</td>
                 <td>@p.Defence</td>
                 <td>@p.Midfield</td>
@@ -78,7 +78,7 @@
         @foreach (FootballPlayer p in Model.TeamB.FootballPlayers)
         {
             <tr>
-                <td>@p.FirstName @p.LastName</td>
+                <td>@p.Player.FirstName @p.Player.LastName</td>
                 <td>@p.Rating</td>
                 <td>@p.Defence</td>
                 <td>@p.Midfield</td>

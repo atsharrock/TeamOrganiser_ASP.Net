@@ -34,80 +34,60 @@ namespace TeamOrganiser.Tests
             {
                 new FootballPlayer()
                 {
-                    FirstName = "Andrew",
-                    LastName = "Sharrock",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Stuart",
-                    LastName = "Sharrock",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Jim",
-                    LastName = "Sharrock",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Gill",
-                    LastName = "Sharrock",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Stevie",
-                    LastName = "Sharrock",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Carly",
-                    LastName = "Richardson",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Timme",
-                    LastName = "Martin",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Pete",
-                    LastName = "Skipp",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Paul",
-                    LastName = "French",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 },
                 new FootballPlayer()
                 {
-                    FirstName = "Leeroy",
-                    LastName = "Jenkins",
                     Defence = rnd.Next(1, 101),
                     Midfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)

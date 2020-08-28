@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -34,12 +35,12 @@ namespace TeamOrganiser.Pages.FootballGames
             _playerGamesService = footballPlayerFootballGamesService;
             _playerTeamsService = footballPlayerFootballTeamsService;
             _userManager = userManager;
-            AllFootballPlayers = _context.FootballPlayers.ToList();
         }
 
         public IActionResult OnGet()
         {
             DateTime = DateTime.Now;
+            AllFootballPlayers = _context.FootballPlayers.Include(p => p.Player).ToList();
             return Page();
         }
 

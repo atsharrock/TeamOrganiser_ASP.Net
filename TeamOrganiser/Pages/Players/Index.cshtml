@@ -107,7 +107,22 @@
         }
 
         function editModel() {
-            // TODO
+            $.post('Players/Edit', $('#editForm').serialize(), function (data) {
+                $('#editModal').modal('toggle');
+                if (data.substring(0, 5) !== "Error") {
+                    $('#successModalMessage').text(data);
+                    $('#success_tic').modal('toggle');
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }
+                else {
+                    $('#errorModalMessage').text(data);
+                    $('#errorModal').modal('toggle');
+                }
+
+            });
         }
 
         function loadDelete(id) {

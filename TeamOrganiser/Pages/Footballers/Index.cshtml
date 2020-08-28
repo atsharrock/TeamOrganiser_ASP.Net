@@ -19,16 +19,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FootballPlayer[0].FirstName)
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Player.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FootballPlayer[0].LastName)
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Player.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FootballPlayer[0].Email)
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Player.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FootballPlayer[0].ContactNumber)
+                @Html.DisplayNameFor(model => model.FootballPlayer[0].Player.ContactNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FootballPlayer[0].Rating)
@@ -50,16 +50,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.Player.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.Player.LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => item.Player.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                    @Html.DisplayFor(modelItem => item.Player.ContactNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Rating)

@@ -22,7 +22,7 @@ namespace TeamOrganiser.Tests
             FootballPlayer footballPlayer = SportsFactory.CreateFootballPlayer(NewPlayer);
 
             Assert.IsNotNull(footballPlayer);
-            Assert.AreEqual("Andrew", footballPlayer.FirstName);
+            Assert.AreEqual("Andrew", footballPlayer.Player.FirstName);
 
         }
 

@@ -30,10 +30,6 @@ namespace TeamOrganiser
             FootballPlayer NewFootballPlayer = new FootballPlayer()
             {
                 Id = player.Id,
-                FirstName = player.FirstName,
-                LastName = player.LastName,
-                Email = player.Email,
-                ContactNumber = player.ContactNumber
             };
 
             return NewFootballPlayer;

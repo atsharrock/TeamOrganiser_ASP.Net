@@ -32,17 +32,17 @@ namespace TeamOrganiser.Data
 
         public async void Seed()
         {
-            Sport Football = new Football()
-            {
-                Name = "Football"
-            };
-
-            Sports.Add(Football);
-
             Random rnd = new Random();
 
-            if (!Players.Any() && !FootballPlayers.Any())
+            if (!Players.Any() && !FootballPlayers.Any() && !Sports.Any())
             {
+
+                Sport Football = new Football()
+                {
+                    Name = "Football"
+                };
+                Sports.Add(Football);
+
                 var Andrew = new Player()
                 {
                     FirstName = "Andrew",
@@ -109,80 +109,70 @@ namespace TeamOrganiser.Data
 
                 var AndrewFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Andrew",
-                    LastName = "Sharrock",
+                    PlayerId = Andrew.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var StuartFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Stuart",
-                    LastName = "Sharrock",
+                    PlayerId = Stuart.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var JimFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Jim",
-                    LastName = "Sharrock",
+                    PlayerId = Jim.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var GillFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Gill",
-                    LastName = "Sharrock",
+                    PlayerId = Gill.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var StevieFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Stevie",
-                    LastName = "Sharrock",
+                    PlayerId = Stevie.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var CarlyFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Carly",
-                    LastName = "Richardson",
+                    PlayerId = Carly.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var TimmeFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Timme",
-                    LastName = "Martin",
+                    PlayerId = Timme.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 }; ;
                 var PeteFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Pete",
-                    LastName = "Skipp",
+                    PlayerId = Pete.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var PaulFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Paul",
-                    LastName = "French",
+                    PlayerId = Paul.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
                 var LeeroyFootballPlayer = new FootballPlayer()
                 {
-                    FirstName = "Leeroy",
-                    LastName = "Jenkins",
+                    PlayerId = Leeroy.Id,
                     CentreBack = rnd.Next(1, 101),
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)

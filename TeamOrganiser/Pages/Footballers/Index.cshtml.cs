@@ -25,7 +25,7 @@ namespace TeamOrganiser
 
         public async Task OnGetAsync()
         {
-            FootballPlayer = await _context.FootballPlayers.ToListAsync();
+            FootballPlayer = await _context.FootballPlayers.Include(p => p.Player).ToListAsync();
         }
     }
 }

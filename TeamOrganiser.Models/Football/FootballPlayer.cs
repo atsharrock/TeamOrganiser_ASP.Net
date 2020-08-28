@@ -13,16 +13,15 @@ using TeamOrganiser.Models.Teams;
 
 namespace TeamOrganiser.Models
 {
-    public class FootballPlayer : IFootballPlayer
+    public class FootballPlayer
     {
 
         [Key]
         public int Id { get; set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string ContactNumber { get; set; }
+        [ForeignKey("Player")]
+        public int PlayerId { get; set; }
+        public Player Player { get; set; }
 
         public int Defence { get; set; }
         public int CentreBack { get; set; }

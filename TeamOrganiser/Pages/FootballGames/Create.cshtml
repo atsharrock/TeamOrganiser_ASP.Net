@@ -25,7 +25,7 @@
                 @for (var i = 0; i < Model.AllFootballPlayers.Count(); i++)
                 {
                     <tr>
-                        <td>@Model.AllFootballPlayers[i].FirstName @Model.AllFootballPlayers[i].LastName</td>
+                        <td>@Model.AllFootballPlayers[i].Player.FirstName @Model.AllFootballPlayers[i].Player.LastName</td>
                         <td>@Model.AllFootballPlayers[i].Defence</td>
                         <td>@Model.AllFootballPlayers[i].Midfield</td>
                         <td>@Model.AllFootballPlayers[i].Forward</td>

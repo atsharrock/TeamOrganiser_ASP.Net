@@ -63,7 +63,7 @@ namespace TeamOrganiser
 
             if (result == 1)
             {
-                return Content($"{FootballPlayerToUpdate.FirstName} has been updated!");
+                return Content($"{FootballPlayerToUpdate.Player.FirstName} has been updated!");
             }
 
             return Content("Error - please contact your system administrator");

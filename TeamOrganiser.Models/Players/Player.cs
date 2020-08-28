@@ -24,5 +24,6 @@ namespace TeamOrganiser.Models.Players
         [Display(Name = "Contact Number")]
         public string ContactNumber { get; set; }
 
+        public IList<PlayerSports> PlayerSports { get; set; } = new List<PlayerSports>();
     }
 }
