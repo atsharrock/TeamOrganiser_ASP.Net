@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200828200139_link_playerToSports2")]
+    partial class link_playerToSports2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -462,17 +464,17 @@ namespace TeamOrganiser.Data.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSports", b =>
+            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PlayerId")
+                    b.Property<int?>("PlayerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SportId")
+                    b.Property<int?>("SportId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -481,7 +483,7 @@ namespace TeamOrganiser.Data.Migrations
 
                     b.HasIndex("SportId");
 
-                    b.ToTable("PlayerSports");
+                    b.ToTable("PlayersSports");
                 });
 
             modelBuilder.Entity("TeamOrganiser.Models.Sport", b =>
@@ -490,9 +492,6 @@ namespace TeamOrganiser.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -605,19 +604,15 @@ namespace TeamOrganiser.Data.Migrations
                         .HasForeignKey("FootballTeamId");
                 });
 
-            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSports", b =>
+            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSport", b =>
                 {
                     b.HasOne("TeamOrganiser.Models.Players.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("PlayerSports")
+                        .HasForeignKey("PlayerId");
 
                     b.HasOne("TeamOrganiser.Models.Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("PlayerSports")
+                        .HasForeignKey("SportId");
                 });
 #pragma warning restore 612, 618
         }

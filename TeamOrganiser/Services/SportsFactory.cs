@@ -16,9 +16,6 @@ namespace TeamOrganiser
             NewPlayer.LastName = Player.LastName;
             NewPlayer.Email = Player.Email;
             NewPlayer.ContactNumber = Player.ContactNumber;
-            NewPlayer.Football = Player.Football;
-            NewPlayer.Hockey = Player.Hockey;
-            NewPlayer.Basketball = Player.Basketball;
 
             return NewPlayer;
         }

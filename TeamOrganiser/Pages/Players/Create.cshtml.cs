@@ -28,7 +28,7 @@ namespace TeamOrganiser
         [BindProperty]
         public Player Player { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(Player Player)
+        public async Task<IActionResult> OnPostAsync(Player Player, bool Football)
         {
             if (!ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace TeamOrganiser
                 Player NewPlayer = SportsFactory.CreatePlayer(Player);
                 _context.Players.Add(NewPlayer);
 
-                if (Player.Football)
+                if (Football)
                 {
                     FootballPlayer NewFootballPlayer = SportsFactory.CreateFootballPlayer(NewPlayer);
                     _context.FootballPlayers.Add(NewFootballPlayer);

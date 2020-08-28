@@ -9,6 +9,7 @@ using TeamOrganiser.Models.Players;
 using TeamOrganiser.Models.Football;
 using Microsoft.EntityFrameworkCore.Internal;
 using TeamOrganiser.Data.Entities.Football;
+using TeamOrganiser.Models.Sports;
 
 namespace TeamOrganiser.Data
 {
@@ -24,72 +25,73 @@ namespace TeamOrganiser.Data
         public DbSet<Player> Players { get; set; }
         public DbSet<FootballGame> FootballGames { get; set; }
         public DbSet<FootballTeam> FootballTeams { get; set; }
+        public DbSet<Sport> Sports { get; set; }
+        public DbSet<PlayerSports> PlayerSports { get; set; }
         public DbSet<FootballPlayerFootballGames> FootballPlayerFootballGames { get; set; }
         public DbSet<FootballPlayerFootballTeams> FootballPlayerFootballTeams { get; set; }
 
         public async void Seed()
         {
-            if (!Players.Any())
+            Sport Football = new Football()
+            {
+                Name = "Football"
+            };
+
+            Sports.Add(Football);
+
+            Random rnd = new Random();
+
+            if (!Players.Any() && !FootballPlayers.Any())
             {
                 var Andrew = new Player()
                 {
                     FirstName = "Andrew",
                     LastName = "Sharrock",
-                    Football = true,
                 };
                 var Stuart = new Player()
                 {
                     FirstName = "Stuart",
                     LastName = "Sharrock",
-                    Football = true,
                 };
                 var Jim = new Player()
                 {
                     FirstName = "Jim",
                     LastName = "Sharrock",
-                    Football = true,
                 };
                 var Gill = new Player()
                 {
                     FirstName = "Gill",
                     LastName = "Sharrock",
-                    Football = true,
                 };
                 var Stevie = new Player()
                 {
                     FirstName = "Stevie",
                     LastName = "Sharrock",
-                    Football = true,
                 };
                 var Carly = new Player()
                 {
                     FirstName = "Carly",
-                    LastName = "Richardson",
-                    Football = true,
+                    LastName = "Richardson"
                 };
                 var Timme = new Player()
                 {
                     FirstName = "Timme",
                     LastName = "Martin",
-                    Football = true,
                 };
                 var Pete = new Player()
                 {
                     FirstName = "Pete",
                     LastName = "Skipp",
-                    Football = true,
                 };
                 var Paul = new Player()
                 {
                     FirstName = "Paul",
                     LastName = "French",
-                    Football = true,
                 };
                 var Leeroy = new Player()
                 {
                     FirstName = "Leeroy",
                     LastName = "Jenkins",
-                    Football = true,
                 };
 
                 await Players.AddAsync(Andrew);
@@ -105,13 +107,7 @@ namespace TeamOrganiser.Data
 
                 SaveChanges();
 
-            }
-
-            if (!FootballPlayers.Any())
-            {
-                Random rnd = new Random();
-
-                var Andrew = new FootballPlayer()
+                var AndrewFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Andrew",
                     LastName = "Sharrock",
@@ -119,7 +115,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Stuart = new FootballPlayer()
+                var StuartFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Stuart",
                     LastName = "Sharrock",
@@ -127,7 +123,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Jim = new FootballPlayer()
+                var JimFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Jim",
                     LastName = "Sharrock",
@@ -135,7 +131,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Gill = new FootballPlayer()
+                var GillFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Gill",
                     LastName = "Sharrock",
@@ -143,7 +139,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Stevie = new FootballPlayer()
+                var StevieFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Stevie",
                     LastName = "Sharrock",
@@ -151,7 +147,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Carly = new FootballPlayer()
+                var CarlyFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Carly",
                     LastName = "Richardson",
@@ -159,7 +155,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Timme = new FootballPlayer()
+                var TimmeFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Timme",
                     LastName = "Martin",
@@ -167,7 +163,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 }; ;
-                var Pete = new FootballPlayer()
+                var PeteFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Pete",
                     LastName = "Skipp",
@@ -175,7 +171,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Paul = new FootballPlayer()
+                var PaulFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Paul",
                     LastName = "French",
@@ -183,7 +179,7 @@ namespace TeamOrganiser.Data
                     CentreMidfield = rnd.Next(1, 101),
                     Forward = rnd.Next(1, 101)
                 };
-                var Leeroy = new FootballPlayer()
+                var LeeroyFootballPlayer = new FootballPlayer()
                 {
                     FirstName = "Leeroy",
                     LastName = "Jenkins",
@@ -192,22 +188,80 @@ namespace TeamOrganiser.Data
                     Forward = rnd.Next(1, 101)
                 };
 
-                Andrew.SetRating(); Stuart.SetRating(); Jim.SetRating(); Gill.SetRating(); Stevie.SetRating();
-                Carly.SetRating(); Timme.SetRating(); Pete.SetRating(); Paul.SetRating(); Leeroy.SetRating();
+                AndrewFootballPlayer.SetRating(); StuartFootballPlayer.SetRating(); JimFootballPlayer.SetRating(); 
+                GillFootballPlayer.SetRating(); StevieFootballPlayer.SetRating(); CarlyFootballPlayer.SetRating(); 
+                TimmeFootballPlayer.SetRating(); PeteFootballPlayer.SetRating(); PaulFootballPlayer.SetRating(); 
+                LeeroyFootballPlayer.SetRating();
 
-                await FootballPlayers.AddAsync(Andrew);
-                await FootballPlayers.AddAsync(Stuart);
-                await FootballPlayers.AddAsync(Jim);
-                await FootballPlayers.AddAsync(Gill);
-                await FootballPlayers.AddAsync(Stevie);
-                await FootballPlayers.AddAsync(Carly);
-                await FootballPlayers.AddAsync(Timme);
-                await FootballPlayers.AddAsync(Pete);
-                await FootballPlayers.AddAsync(Paul);
-                await FootballPlayers.AddAsync(Leeroy);
+                await FootballPlayers.AddAsync(AndrewFootballPlayer);
+                await FootballPlayers.AddAsync(StuartFootballPlayer);
+                await FootballPlayers.AddAsync(JimFootballPlayer);
+                await FootballPlayers.AddAsync(GillFootballPlayer);
+                await FootballPlayers.AddAsync(StevieFootballPlayer);
+                await FootballPlayers.AddAsync(CarlyFootballPlayer);
+                await FootballPlayers.AddAsync(TimmeFootballPlayer);
+                await FootballPlayers.AddAsync(PeteFootballPlayer);
+                await FootballPlayers.AddAsync(PaulFootballPlayer);
+                await FootballPlayers.AddAsync(LeeroyFootballPlayer);
 
                 SaveChanges();
+
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Andrew.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Stuart.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Jim.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Gill.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Stevie.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Carly.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Timme.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Pete.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Paul.Id,
+                    SportId = Football.Id,
+                });
+                await PlayerSports.AddAsync(new PlayerSports()
+                {
+                    PlayerId = Leeroy.Id,
+                    SportId = Football.Id,
+                });
+
+
+                SaveChanges();
+
             }
+
         }
 
     }

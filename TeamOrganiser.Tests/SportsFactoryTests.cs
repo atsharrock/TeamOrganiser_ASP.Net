@@ -46,9 +46,6 @@ namespace TeamOrganiser.Tests
                     LastName = "Sharrock",
                     Email = "A@S.com",
                     ContactNumber = "12345678",
-                    Football = true,
-                    Hockey = false,
-                    Basketball = false
                 },
                 new Player()
                 {
@@ -56,9 +53,6 @@ namespace TeamOrganiser.Tests
                     LastName = "Martin",
                     Email = "T@M.com",
                     ContactNumber = "87654321",
-                    Football = true,
-                    Hockey = true,
-                    Basketball = false
                 }
             };
 

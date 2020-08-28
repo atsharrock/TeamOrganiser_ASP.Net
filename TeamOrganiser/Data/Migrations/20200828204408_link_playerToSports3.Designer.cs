@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200828204408_link_playerToSports3")]
+    partial class link_playerToSports3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -462,28 +464,6 @@ namespace TeamOrganiser.Data.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSports", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SportId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlayerId");
-
-                    b.HasIndex("SportId");
-
-                    b.ToTable("PlayerSports");
-                });
-
             modelBuilder.Entity("TeamOrganiser.Models.Sport", b =>
                 {
                     b.Property<int>("Id")
@@ -491,10 +471,12 @@ namespace TeamOrganiser.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Sports");
                 });
@@ -605,19 +587,11 @@ namespace TeamOrganiser.Data.Migrations
                         .HasForeignKey("FootballTeamId");
                 });
 
-            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSports", b =>
+            modelBuilder.Entity("TeamOrganiser.Models.Sport", b =>
                 {
-                    b.HasOne("TeamOrganiser.Models.Players.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TeamOrganiser.Models.Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TeamOrganiser.Models.Players.Player", null)
+                        .WithMany("Sports")
+                        .HasForeignKey("PlayerId");
                 });
 #pragma warning restore 612, 618
         }

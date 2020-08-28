@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamOrganiser.Data;
 
 namespace TeamOrganiser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200828193843_link_playerToSports")]
+    partial class link_playerToSports
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -357,12 +359,75 @@ namespace TeamOrganiser.Data.Migrations
                     b.ToTable("FootballTeams");
                 });
 
-            modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
+            modelBuilder.Entity("TeamOrganiser.Models.Players.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SportId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("SportId");
+
+                    b.ToTable("PlayersSports");
+                });
+
+            modelBuilder.Entity("TeamOrganiser.Models.Sport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sports");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Sport");
+                });
+
+            modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
+                {
+                    b.HasBaseType("TeamOrganiser.Models.Sport");
 
                     b.Property<int>("Attack")
                         .HasColumnType("int");
@@ -412,6 +477,9 @@ namespace TeamOrganiser.Data.Migrations
                     b.Property<int>("Midfield")
                         .HasColumnType("int");
 
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -427,76 +495,13 @@ namespace TeamOrganiser.Data.Migrations
                     b.Property<int>("Winger")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
                     b.HasIndex("FootballGameId");
 
                     b.HasIndex("FootballTeamId");
 
-                    b.ToTable("FootballPlayers");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Players.Player", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContactNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSports", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SportId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("PlayerId");
 
-                    b.HasIndex("SportId");
-
-                    b.ToTable("PlayerSports");
-                });
-
-            modelBuilder.Entity("TeamOrganiser.Models.Sport", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sports");
+                    b.HasDiscriminator().HasValue("FootballPlayer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -594,6 +599,17 @@ namespace TeamOrganiser.Data.Migrations
                         .HasForeignKey("FootballGameId");
                 });
 
+            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSport", b =>
+                {
+                    b.HasOne("TeamOrganiser.Models.Players.Player", "Player")
+                        .WithMany("PlayerSports")
+                        .HasForeignKey("PlayerId");
+
+                    b.HasOne("TeamOrganiser.Models.Sport", "Sport")
+                        .WithMany("PlayerSports")
+                        .HasForeignKey("SportId");
+                });
+
             modelBuilder.Entity("TeamOrganiser.Models.FootballPlayer", b =>
                 {
                     b.HasOne("TeamOrganiser.Models.Football.FootballGame", null)
@@ -603,19 +619,10 @@ namespace TeamOrganiser.Data.Migrations
                     b.HasOne("TeamOrganiser.Models.Football.FootballTeam", null)
                         .WithMany("FootballPlayers")
                         .HasForeignKey("FootballTeamId");
-                });
 
-            modelBuilder.Entity("TeamOrganiser.Models.Players.PlayerSports", b =>
-                {
                     b.HasOne("TeamOrganiser.Models.Players.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TeamOrganiser.Models.Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

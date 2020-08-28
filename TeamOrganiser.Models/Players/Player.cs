@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 
 namespace TeamOrganiser.Models.Players
 {
@@ -21,15 +23,6 @@ namespace TeamOrganiser.Models.Players
 
         [Display(Name = "Contact Number")]
         public string ContactNumber { get; set; }
-
-        [Display(Name = "Football")]
-        public bool Football { get; set; }
-
-        [Display(Name = "Hockey")]
-        public bool Hockey { get; set; }
-
-        [Display(Name = "Basketball")]
-        public bool Basketball { get; set; }
 
     }
 }

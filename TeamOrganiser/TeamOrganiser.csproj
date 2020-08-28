@@ -10,6 +10,20 @@
     <Compile Remove="Data\Migrations\20200617103636_footballgame_duration_toInt.Designer.cs" />
     <Compile Remove="Data\Migrations\20200819221904_Link_game_user.cs" />
     <Compile Remove="Data\Migrations\20200819221904_Link_game_user.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828000951_PlayerHasListOfSports.cs" />
+    <Compile Remove="Data\Migrations\20200828000951_PlayerHasListOfSports.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828191842_link_playerToSports.cs" />
+    <Compile Remove="Data\Migrations\20200828191842_link_playerToSports.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828192929_link_playerToSports.cs" />
+    <Compile Remove="Data\Migrations\20200828192929_link_playerToSports.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828193451_link_playerToSports.cs" />
+    <Compile Remove="Data\Migrations\20200828193451_link_playerToSports.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828205243_link_playerToSports4.cs" />
+    <Compile Remove="Data\Migrations\20200828205243_link_playerToSports4.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828212215_link_playerToSports5.cs" />
+    <Compile Remove="Data\Migrations\20200828212215_link_playerToSports5.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200828212525_link_playerToSports5.cs" />
+    <Compile Remove="Data\Migrations\20200828212525_link_playerToSports5.Designer.cs" />
   </ItemGroup>
 
 

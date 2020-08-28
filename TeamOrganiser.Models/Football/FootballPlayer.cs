@@ -15,6 +15,7 @@ namespace TeamOrganiser.Models
 {
     public class FootballPlayer : IFootballPlayer
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -22,7 +23,6 @@ namespace TeamOrganiser.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string ContactNumber { get; set; }
-        public int Rating { get; set; }
 
         public int Defence { get; set; }
         public int CentreBack { get; set; }
@@ -38,6 +38,7 @@ namespace TeamOrganiser.Models
         public int Forward { get; set; }
         public int CentreForward { get; set; }
         public int Winger { get; set; }
+        public int Rating { get; set; }
 
         public void SetRating()
         {
